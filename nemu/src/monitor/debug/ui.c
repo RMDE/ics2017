@@ -66,7 +66,6 @@ static int cmd_si(char *args){
 		step = -1;
 	else if(arg)
 	{
-		printf("arg is exit");
 		for(int i=0;i<strlen(arg);i++)
 		{
 			if(arg[i]<'0'||arg[i]>'9')
@@ -77,8 +76,8 @@ static int cmd_si(char *args){
 			step=step*10+(arg[i]-'0');
 		}
 	}
-	printf("%d\n",step);
-	//cpu_exec(step);
+	//printf("%d\n",step);
+	cpu_exec(step);
 	return 0;
 }
 
