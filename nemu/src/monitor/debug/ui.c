@@ -59,7 +59,19 @@ static struct {
 static int cmd_si(char *args){
 	//using function "strtok" to read N
 	char *arg = strtok(NULL," ");
-	printf("%s",arg);
+	int step=0;
+	if(arg)
+	{
+		int len = strlen(arg);
+		for(int i=0;i<len;i++)
+		{
+			step=step*10+(arg[i]-'0');
+		}
+	}
+	else
+		step=1;
+	printf("%d\n",step);
+	//cpu_exec(step);
 	return 0;
 }
 
