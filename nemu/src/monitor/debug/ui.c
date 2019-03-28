@@ -61,10 +61,10 @@ static int cmd_si(char *args){
 	char *arg = strtok(NULL," ");
 	int step=0;
 	if(strcmp(arg,"-1")==0)
-		step=-1;
-	//printf("---%s---\n",arg);
-	else if(arg==NULL)
-		step=1;
+		step = -1;
+	printf("---%s---\n",arg);
+	if(arg == NULL)
+		step = 1;
 	else if(arg)
 	{
 		printf("arg is exit");
