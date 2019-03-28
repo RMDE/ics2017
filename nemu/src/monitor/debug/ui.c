@@ -70,8 +70,8 @@ static int cmd_si(char *args){
 	}
 	else
 		step=1;
-	printf("%d\n",step);
-	//cpu_exec(step);
+	//printf("%d\n",step);
+	cpu_exec(step);
 	return 0;
 }
 
