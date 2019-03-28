@@ -68,7 +68,7 @@ static int cmd_si(char *args){
 		{
 			if(arg[i]<'0'||arg[i]>'9')
 			{
-				printf("the input is wrong,please enter again\n");
+				printf("Unknown command '%s'\n", arg);
 				return 0;
 			}
 			step=step*10+arg[i]-'0';
