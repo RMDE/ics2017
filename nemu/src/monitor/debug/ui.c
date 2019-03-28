@@ -60,11 +60,10 @@ static int cmd_si(char *args){
 	//using function "strtok" to read N
 	char *arg = strtok(NULL," ");
 	int step=0;
-	if(strcmp(arg,"-1")==0)
-		step = -1;
-	printf("---%s---\n",arg);
 	if(arg == NULL)
 		step = 1;
+	else if(strcmp(arg,"-1")==0)
+		step = -1;
 	else if(arg)
 	{
 		printf("arg is exit");
