@@ -60,18 +60,24 @@ static int cmd_si(char *args){
 	//using function "strtok" to read N
 	char *arg = strtok(NULL," ");
 	int step=0;
-	if(arg)
+	if(strcmp(arg,"-1")==0)
+		step=-1;
+	else if(arg)
 	{
-		int len = strlen(arg);
-		for(int i=0;i<len;i++)
+		for(int i=0;i<strlen(arg);i++)
 		{
-			step=step*10+(arg[i]-'0');
+			if(arg[i]<'0'||arg[i]>'9')
+			{
+				printf("the input is wrong,please enter again\n");
+				return 0;
+			}
+			step=step*10+arg[i]-'0';
 		}
 	}
 	else
 		step=1;
-	//printf("%d\n",step);
-	cpu_exec(step);
+	printf("%d\n",step);
+	//cpu_exec(step);
 	return 0;
 }
 
