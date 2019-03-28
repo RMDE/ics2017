@@ -74,7 +74,7 @@ static int cmd_si(char *args){
 			step=step*10+arg[i]-'0';
 		}
 	}
-	else
+	else if(arg==NULL)
 		step=1;
 	printf("%d\n",step);
 	//cpu_exec(step);
