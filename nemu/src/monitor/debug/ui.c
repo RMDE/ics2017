@@ -111,19 +111,20 @@ static int cmd_x(char *args){
 	char *number=strtok(NULL," ");
 	char n=number[0];
 	int len=n-'0';
-	printf("%d\n",len);
+	//printf("%d\n",len);
 	char *arg=strtok(NULL," ");
 	strtok(arg,"x");
 	arg=strtok(NULL," ");
 	unsigned int addr=0;
 	for(int i=0;i<strlen(arg);i++)
 		addr=addr*16+(arg[i]-'0');
-	printf("%u\n",addr);
-	/*for(int i=0;i<n;i++)
+	//printf("%u\n",addr);
+	printf("Address\tDword block\n");
+	for(int i=0;i<n;i++)
 	{
-		vaddr_read();
-		printf("");
-	}*/
+		unsigned int res=vaddr_read(addr,len);
+		printf("%08x\t%08x\n",addr,res);
+	}
 	return 0;
 }
 
