@@ -113,7 +113,8 @@ static int cmd_x(char *args){
 	printf("%s\n",number);
 	char *arg=strtok(NULL," ");
 	printf("%s\n",arg);
-	arg=strtok(strtok(arg,"x")," ");
+	strtok(arg,"x");
+	arg=strtok(arg," ");
 	printf("%s\n",arg);
 	//for(int i=0;i<n;i++)
 	//{
