@@ -42,6 +42,8 @@ static int cmd_si(char *args);
 
 static int cmd_info(char *args);
 
+static int cmd_x(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -52,6 +54,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   {"si","Single step execution",cmd_si },
   {"info","Print Register",cmd_info},
+  {"x","Scan Memory",cmd_x},
 
   /* TODO: Add more commands */
 
@@ -101,6 +104,22 @@ static int cmd_info(char *args){
 		printf("Unknown command '%s'\n",arg);
 		return 0;
 	}
+	return 0;
+}
+
+static int cmd_x(char *args){
+	char *number=strtok(NULL," ");
+	//int n=*number-'0';
+	printf("%s\n",number);
+	char *arg=strtok(NULL," ");
+	printf("%s\n",arg);
+	arg=strtok(NULL,"");
+	printf("%s\n",arg);
+	//for(int i=0;i<n;i++)
+	//{
+	//	vaddr_read();
+	//	printf("");
+	//}
 	return 0;
 }
 
