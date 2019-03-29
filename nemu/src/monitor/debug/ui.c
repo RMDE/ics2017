@@ -120,10 +120,10 @@ static int cmd_x(char *args){
 		addr=addr*16+(arg[i]-'0');
 	//printf("%u\n",addr);
 	printf("Address\tDword block\n");
-	for(int i=0;i<n;i++)
+	for(int i=0;i<len;i++)
 	{
-		unsigned int res=vaddr_read(addr,len);
-		printf("%08x\t%08x\n",addr,res);
+		unsigned int res=vaddr_read(addr,1);
+		printf("0x%08x\t0x%08x\n",addr,res);
 	}
 	return 0;
 }
