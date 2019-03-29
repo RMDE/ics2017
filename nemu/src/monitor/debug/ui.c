@@ -109,18 +109,20 @@ static int cmd_info(char *args){
 
 static int cmd_x(char *args){
 	char *number=strtok(NULL," ");
-	int n=number[0]-'0';
-	printf("%d\n",n);
+	char n=number[0];//-'0';
+	printf("%c\n",n);
 	char *arg=strtok(NULL," ");
-	printf("%s\n",arg);
 	strtok(arg,"x");
 	arg=strtok(NULL," ");
-	printf("%s\n",arg);
-	//for(int i=0;i<n;i++)
-	//{
-	//	vaddr_read();
-	//	printf("");
-	//}
+	unsigned int addr=0;
+	for(int i=0;i<strlen(arg);i++)
+		addr=addr*16+(arg[i]-'0');
+	printf("%ud\n",addr);
+	/*for(int i=0;i<n;i++)
+	{
+		vaddr_read();
+		printf("");
+	}*/
 	return 0;
 }
 
