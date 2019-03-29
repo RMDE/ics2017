@@ -109,8 +109,8 @@ static int cmd_info(char *args){
 
 static int cmd_x(char *args){
 	char *number=strtok(NULL," ");
-	//int n=*number-'0';
-	printf("%s\n",number);
+	int n=number[0]-'0';
+	printf("%d\n",n);
 	char *arg=strtok(NULL," ");
 	printf("%s\n",arg);
 	strtok(arg,"x");
