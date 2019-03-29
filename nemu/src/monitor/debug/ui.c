@@ -119,7 +119,7 @@ static int cmd_x(char *args){
 	for(int i=0;i<strlen(arg);i++)
 		addr=addr*16+(arg[i]-'0');
 	//printf("%u\n",addr);
-	printf("Address         Dword block        Byte sequence\n");
+	printf("Address         Dword block    Byte sequence\n");
 	for(int i=0;i<len;i++)
 	{
 		unsigned int val=vaddr_read(addr,4);
