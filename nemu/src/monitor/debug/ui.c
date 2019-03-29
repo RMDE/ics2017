@@ -124,6 +124,7 @@ static int cmd_x(char *args){
 	{
 		unsigned int res=vaddr_read(addr,1);
 		printf("0x%08x\t0x%08x\n",addr,res);
+		addr+=4;
 	}
 	return 0;
 }
