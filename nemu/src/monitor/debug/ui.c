@@ -88,13 +88,13 @@ static int cmd_info(char *args){
 	char *arg=strtok(NULL," ");
 	if(arg==NULL||strcmp(arg,"r")!=0)
 	{
-		printf("Unknown command '%s'\n",arg);
+		printf("Unknown command '%s'\n",args);
 		return 0;
 	}
 	else if(strcmp(arg,"r")==0)
 	{
 		for(int i=0;i<8;i++)
-			printf("%s:\t%08x\t%d\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
+			printf("%s:\t0x%08x\t%d\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
 	}
 	return 0;
 }
