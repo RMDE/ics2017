@@ -40,6 +40,8 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args);
 
+static int cmd_info(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -49,6 +51,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   {"si","Single step execution",cmd_si },
+  {"info","Print Register",cmd_info},
 
   /* TODO: Add more commands */
 
@@ -78,6 +81,21 @@ static int cmd_si(char *args){
 	}
 	//printf("%d\n",step);
 	cpu_exec(step);
+	return 0;
+}
+
+static int cmd_info(char *args){
+	char *arg=strtok(NULL," ");
+	if(arg==NULL||strcmp(arg,"r")!=0)
+	{
+		printf("Unknown command '%s'\n",arg);
+		return 0;
+	}
+	else if(strcmp(arg,"r")==0)
+	{
+		for(int i=0;i<8;i++)
+			printf("%s:\t%08x\t%d\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
+	}
 	return 0;
 }
 
