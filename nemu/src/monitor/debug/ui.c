@@ -126,8 +126,8 @@ static int cmd_x(char *args){
 		printf("0x%08x\t0x%08x\t",addr,val);
 		for(int j=0;j<4;j++)
 		{
-			printf("%02x ",val&0xf);
-			val=val>>2;
+			printf("%02x ",val&0xff);
+			val=val>>8;
 		}
 		printf("\n");
 		addr+=4;
