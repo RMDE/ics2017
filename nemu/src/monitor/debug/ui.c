@@ -131,13 +131,6 @@ static int cmd_x(char *args){
 			addr+=1;
 		}
 		printf("\n");
-		//for(int j=0;j<4;j++)
-		//{
-		//	printf("%02x ",val&0xff);
-		//	val=val>>8;
-		//}
-		printf("\n");
-		addr+=4;
 	}
 	return 0;
 }
