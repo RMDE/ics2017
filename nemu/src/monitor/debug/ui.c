@@ -119,11 +119,17 @@ static int cmd_x(char *args){
 	for(int i=0;i<strlen(arg);i++)
 		addr=addr*16+(arg[i]-'0');
 	//printf("%u\n",addr);
-	printf("Address          Dword block\n");
+	printf("Address         Dword block        Byte sequence\n");
 	for(int i=0;i<len;i++)
 	{
-		unsigned int res=vaddr_read(addr,1);
-		printf("0x%08x\t0x%08x\n",addr,res);
+		unsigned int val=vaddr_read(addr,4);
+		printf("0x%08x\t0x%08x\t",addr,val);
+		for(int j=0;j<4;j++)
+		{
+			printf("%02x ",val&0x3);
+			val=val>>2;
+		}
+		printf("\n");
 		addr+=4;
 	}
 	return 0;
