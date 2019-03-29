@@ -119,7 +119,7 @@ static int cmd_x(char *args){
 	for(int i=0;i<strlen(arg);i++)
 		addr=addr*16+(arg[i]-'0');
 	//printf("%u\n",addr);
-	printf("Address\tDword block\n");
+	printf("Address          Dword block\n");
 	for(int i=0;i<len;i++)
 	{
 		unsigned int res=vaddr_read(addr,1);
