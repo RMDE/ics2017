@@ -98,6 +98,7 @@ static int cmd_info(char *args){
 	{
 		for(int i=0;i<8;i++)
 			printf("%s:\t0x%08x\t%d\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
+		printf("eip:\t0x%08x\t%d\n",cpu.eip,cpu.eip);
 	}
 	else
 	{
