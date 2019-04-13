@@ -31,7 +31,7 @@ static struct rule {
 
   {" +", TK_NOTYPE},					  // spaces
   {"&&",TK_AND},                          // and
-  {"||",TK_OR},                           // or
+  {"\\|\\|",TK_OR},                           // or
   {"==", TK_EQ},					      // equal
   {"!=",TK_NOT_EQ},                       // not equal
   {"!",TK_NOT},                           // not
