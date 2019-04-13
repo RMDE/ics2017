@@ -190,9 +190,9 @@ int find_dominated_op(int p,int q,bool *success)
     int type=15;//初始化
     for(int i=p;i<=q;i++)
     {
-        if(tokens[i].type=='(')
+        if(tokens[i].type==TK_LPAR)
             level++;
-        else if(tokens[i].type==')')
+        else if(tokens[i].type==TK_RPAR)
             level--;
         if(level==0)
         {
