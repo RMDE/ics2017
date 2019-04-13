@@ -212,7 +212,7 @@ int find_dominated_op(int p,int q,bool *success)
               case TK_INVERT:op=type>6? i:op;type=type>6? 6:type;break;
             }
         }
-		else if(i==p||i==p-1)
+		else if(i==p||i==p+1)
 		{
 			switch(tokens[i].type)
 			{
