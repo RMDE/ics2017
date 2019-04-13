@@ -104,12 +104,7 @@ static bool make_token(char *e) {
 	{
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) 
 	  {
-		 char *substr_start = e + position;
-         int substr_len = pmatch.rm_eo;
-
-         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
-		 
+		 int substr_len=pmatch.rm_eo;	
 		 for(int j=0;j<32;++j) //
 		 { 
 		 	tokens[nr_token].str[j]='\0';//
@@ -184,7 +179,7 @@ bool check_parentheses(int p,int q,bool *success)
 
 int find_dominated_op(int p,int q,bool *success)
 {
-	printf("now in find");
+	//printf("now in find");
     int level =0;
     int op=-1;
     int type=15;//初始化
@@ -218,7 +213,7 @@ int find_dominated_op(int p,int q,bool *success)
             }
         }
     }
-	printf("%d\n",op);
+	//printf("%d\n",op);
     if(op==-1)
         *success=false;
     return op;
@@ -226,7 +221,7 @@ int find_dominated_op(int p,int q,bool *success)
 
 uint32_t eval(int p,int q,bool *success)
 {
-	printf("now in eval,%d,%d\n",p,q);
+	//printf("now in eval,%d,%d\n",p,q);
 	if(!*success)
 		return 0;
 	if(p>q)
