@@ -2,7 +2,7 @@
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "nemu.h"
-
+#include "expr.c"
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -44,6 +44,8 @@ static int cmd_info(char *args);
 
 static int cmd_x(char *args);
 
+static int cmd_p(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -55,6 +57,7 @@ static struct {
   {"si","Single step execution",cmd_si },
   {"info","Print Register",cmd_info},
   {"x","Scan Memory",cmd_x},
+  {"p","Evaluate the value",cmd_p}
 
   /* TODO: Add more commands */
 
@@ -135,6 +138,28 @@ static int cmd_x(char *args){
 	}
 	return 0;
 }
+
+static int cmd_p(char *args){
+	bool *success;
+	int res;	
+	char *expre=strtok(NULL," ");
+	success=(bool*)malloc(sizeof(bool));
+	*success=true;
+	if(expre==NULL)
+	{
+		printf("Commond not find");
+		return 0;
+	}
+	res=expr(expre,success);
+	if(!*success)
+	{
+		printf("The expression input is not legal");
+	}
+	else
+		printf("%d",res);
+	return 0;
+}
+
 
 static int cmd_help(char *args) {
   /* extract the first argument */

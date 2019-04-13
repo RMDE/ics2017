@@ -7,7 +7,9 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ
+  TK_NOTYPE = 256, TK_EQ,TK_DIV,TK_LPAR,TK_RPAR,
+  TK_NUMBER_16,TK_NUMBER_10,
+  TK_EAX,TK_EBX,TK_ECX,TK_EDX,TK_ESP,TK_EBP,TK_ESI,TK_EDI,TK_EIP
 
   /* TODO: Add more token types */
 
@@ -22,9 +24,25 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 
-  {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
-  {"==", TK_EQ}         // equal
+  {" +", TK_NOTYPE},					  // spaces
+  {"\\+", '+'},							  // plus
+  {"==", TK_EQ},					      // equal
+  {"-", '-'},							  // sub
+  {"\\*", '*'},							  // mul
+  {"/", TK_DIV},					      // dev
+  {"\\(", TK_LPAR},						  // the left parenthese
+  {"\\)", TK_RPAR},						  // the right parenthese
+  {"0x[0-9a-fA-F{1,8}", TK_NUMBER_16},    // hexadecimal
+  {"\\d+", TK_NUMBER_10},				  // decimalism
+  {"\\$eax\\|$EAX", TK_EAX},                     // $eax
+  {"\\$ebx\\|$EBX", TK_EBX},                     // $ebx
+  {"\\$ecx\\|$ECX", TK_ECX},                     // $ecx
+  {"\\$edx\\|$EDX", TK_EDX},                     // $edx
+  {"\\$esp\\|$EBP", TK_ESP},                     // $esp
+  {"\\$ebp\\|$EBP", TK_EBP},                     // $ebp
+  {"\\$esi\\|$ESI", TK_ESI},                     // $esi
+  {"\\$edi\\|$EDI", TK_EDI},                     // $edi
+  {"\\$eip\\|$EIP", TK_EIP}                      // $eip
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -79,11 +97,11 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
-        switch (rules[i].token_type) {
-          default: TODO();
-        }
+    //    switch (rules[i].token_type) {
+    //      default: TODO();
+    //    }
 
-        break;
+    //    break;
       }
     }
 
@@ -103,7 +121,7 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  //TODO();
 
   return 0;
 }
