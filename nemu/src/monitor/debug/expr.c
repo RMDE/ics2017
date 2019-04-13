@@ -293,35 +293,34 @@ uint32_t eval(int p,int q,bool *success)
 		if(!*success)
 			return 0;
 		//evaluate the value
-		if(p==q-1) //单目运算符
+		if(mid==q-1) //单目运算符
 		{
 			switch(tokens[mid].type)
 			{
-				case TK_NOT:return !right;
-				case TK_INVERT:return ~right;
-				case '-':return -right;
+				case TK_NOT:right= !right;
+				case TK_INVERT:right= ~right;
+				case '-':right=-right;
 			}
 		}						
-		else //双目运算符
+	   	//双目运算符
+		switch(tokens[mid].type)
 		{
-			switch(tokens[mid].type)
-			{
-				case TK_AND:return left&&right;
-				case TK_OR:return left||right;
-				case TK_EQ:return left==right;
-				case TK_NOT_EQ:return left!=right;
-				case TK_SHIFT_LEFT:return left<<right;
-				case TK_SHIFT_RIGHT:return left>>right;
-				case TK_LEQ:return left<=right;
-				case TK_GEQ:return left>=right;
-				case TK_L:return left<right;
-				case TK_G:return left>right;
-				case '+':return left+right;
-				case '-':return left-right;
-				case '*':return left*right;
-				case TK_DIV:return left/right;
-			}
+			case TK_AND:return left&&right;
+			case TK_OR:return left||right;
+			case TK_EQ:return left==right;
+			case TK_NOT_EQ:return left!=right;
+			case TK_SHIFT_LEFT:return left<<right;
+			case TK_SHIFT_RIGHT:return left>>right;
+			case TK_LEQ:return left<=right;
+			case TK_GEQ:return left>=right;
+			case TK_L:return left<right;
+			case TK_G:return left>right;
+			case '+':return left+right;
+			case '-':return left-right;
+			case '*':return left*right;
+			case TK_DIV:return left/right;
 		}
+		
 	}
 	return 0;
 }
