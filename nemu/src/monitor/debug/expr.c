@@ -184,6 +184,7 @@ bool check_parentheses(int p,int q,bool *success)
 
 int find_dominated_op(int p,int q,bool *success)
 {
+	printf("now in find\n");
     int level =0;
     int op=-1;
     for(int i=p;i<=q;i++)
@@ -224,6 +225,7 @@ int find_dominated_op(int p,int q,bool *success)
 
 uint32_t eval(int p,int q,bool *success)
 {
+	printf("now in eval\n");
 	if(!success)
 		return 0;
 	if(p>q)
@@ -303,6 +305,7 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
+  printf("the end of make_token\n");///////
 
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
