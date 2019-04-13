@@ -212,6 +212,26 @@ int find_dominated_op(int p,int q,bool *success)
               case TK_INVERT:op=type>6? i:op;type=type>6? 6:type;break;
             }
         }
+		else if(i==p||i==p-1)
+		{
+			switch(tokens[i].type)
+			{
+              case TK_AND:op=type>0? i:op;type=type>0? 0:type;break;
+              case TK_OR:op=type>0? i:op;type=type>0? 0:type;break;
+              case TK_EQ:op=type>1? i:op;type=type>1? 1:type;break;
+              case TK_NOT_EQ:op=type>1? i:op;type=type>1? 1:type;break;
+              case TK_LEQ:op=type>2? i:op;type=type>2? 2:type;break;
+              case TK_GEQ:op=type>2? i:op;type=type>2? 2:type;break;
+              case TK_L:op=type>2? i:op;type=type>2? 2:type;break;
+              case TK_G:op=type>2? i:op;type=type>2? 2:type;break;
+              case '+':op=type>3? i:op;type=type>3? 3:type;break;
+              case '-':op=type>6? i:op;type=type>6? 6:type;break;
+              case '*':op=type>7? i:op;type=type>7? 7:type;break;
+              case TK_DIV:op=type>4? i:op;type=type>4? 4:type;break;
+              case TK_SHIFT_LEFT:op=type>5? i:op;type=type>5? 5:type;break;
+              case TK_SHIFT_RIGHT:op=type>5? i:op;type=type>5? 5:type;break;
+			}
+		}
     }
 	//printf("%d\n",op);
     if(op==-1)
