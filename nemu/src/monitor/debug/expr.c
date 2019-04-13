@@ -278,6 +278,7 @@ uint32_t eval(int p,int q,bool *success)
 			{
 				case TK_NOT:return !right;
 				case TK_INVERT:return ~right;
+				case '-':return -right;
 			}
 		}						
 		else
