@@ -183,13 +183,13 @@ int find_dominated_op(int p,int q,bool *success)
     int level =0;
     int op=-1;
     int type=15;//初始化
-    for(int i=p+1;i<=q;i++)
+    for(int i=p;i<=q;i++)
     {
         if(tokens[i].type==TK_LPAR)
             level++;
         else if(tokens[i].type==TK_RPAR)
             level--;
-        if(level==0)
+        if(level==0&&i!=p)
         {
             //判断是否是运算符且是否比之前的运算符优先级低，优先级一致则看顺序
             switch(tokens[i].type)
