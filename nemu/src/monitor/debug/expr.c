@@ -225,8 +225,8 @@ int find_dominated_op(int p,int q,bool *success)
 
 uint32_t eval(int p,int q,bool *success)
 {
-	printf("now in eval\n");
-	if(!success)
+	printf("now in eval,%d,%d\n",p,q);
+	if(!*success)
 		return 0;
 	if(p>q)
 	{
