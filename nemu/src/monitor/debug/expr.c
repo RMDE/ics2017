@@ -146,7 +146,7 @@ bool check_parentheses(int p,int q,bool *success)
 	int left=0,right=0;
 	if(p==0&&q==nr_token-1)
 	{
-		for(int i=p;i<q;i++)
+		for(int i=p;i<=q;i++)
 		{
 			if(tokens[i].type==TK_LPAR)
 				left++;
@@ -154,7 +154,6 @@ bool check_parentheses(int p,int q,bool *success)
 				right++;
 			if(left<right)
 			{
-				printf("the par is not correct\n");
 				*success=false;
 				return false;
 			}
