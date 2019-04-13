@@ -204,7 +204,7 @@ int find_dominated_op(int p,int q,bool *success)
               case TK_G:op=type>2? i:op;type=type>2? 2:type;break;
               case '+':op=type>3? i:op;type=type>3? 3:type;break;
               //case '-':op=type>3? i:op;type=type>3? 3:type;break;
-			  case '-':if(op==i-1||i==p);else{op=type>3? i:op;type=type>3? 3:type;}break;
+			  case '-':if(op==i-1);if(i==p){op=0;type=5;}else{op=type>3? i:op;type=type>3? 3:type;}break;
               case '*':op=type>4? i:op;type=type>4? 4:type;break;
               case TK_DIV:op=type>4? i:op;type=type>4? 4:type;break;
               case TK_SHIFT_LEFT:op=type>5? i:op;type=type>5? 5:type;break;
@@ -235,7 +235,7 @@ int find_dominated_op(int p,int q,bool *success)
 		}*/
     }
 	printf("%d\n",op);
-    if(op==-2)
+    if(op==-1)
         *success=false;
     return op;
 }
