@@ -281,6 +281,14 @@ uint32_t eval(int p,int q,bool *success)
 			switch(tokens[mid].type)
 			{
 				case TK_NOT:return !right;
+				case TK_INVERT:return ~right;
+			}
+		}						
+		else
+		{
+			switch(tokens[mid].type)
+			{
+				case TK_AND:return left&&right;
 				case TK_OR:return left||right;
 				case TK_EQ:return left==right;
 				case TK_NOT_EQ:return left!=right;
@@ -294,7 +302,7 @@ uint32_t eval(int p,int q,bool *success)
 				case '-':return left-right;
 				case '*':return left*right;
 				case TK_DIV:return left/right;
-			}						
+			}
 		}
 	}
 	return 0;
