@@ -189,7 +189,7 @@ int find_dominated_op(int p,int q,bool *success)
             level++;
         else if(tokens[i].type==TK_RPAR)
             level--;
-        if(level==0&&i!=p&&i!=p+1)
+        if(level==0)
         {
             //判断是否是运算符且是否比之前的运算符优先级低，优先级一致则看顺序
             switch(tokens[i].type)
@@ -203,7 +203,8 @@ int find_dominated_op(int p,int q,bool *success)
               case TK_L:op=type>2? i:op;type=type>2? 2:type;break;
               case TK_G:op=type>2? i:op;type=type>2? 2:type;break;
               case '+':op=type>3? i:op;type=type>3? 3:type;break;
-              case '-':op=type>3? i:op;type=type>3? 3:type;break;
+              //case '-':op=type>3? i:op;type=type>3? 3:type;break;
+			  case '-':if(op==i-1);else{op=type>3? i:op;type=type>3? 3:type;}break;
               case '*':op=type>4? i:op;type=type>4? 4:type;break;
               case TK_DIV:op=type>4? i:op;type=type>4? 4:type;break;
               case TK_SHIFT_LEFT:op=type>5? i:op;type=type>5? 5:type;break;
@@ -212,7 +213,7 @@ int find_dominated_op(int p,int q,bool *success)
               case TK_INVERT:op=type>6? i:op;type=type>6? 6:type;break;
             }
         }
-		else if(i==p||i==p+1)
+		/*else if(i==p||i==p+1)
 		{
 			switch(tokens[i].type)
 			{
@@ -231,7 +232,7 @@ int find_dominated_op(int p,int q,bool *success)
               case TK_SHIFT_LEFT:op=type>5? i:op;type=type>5? 5:type;break;
               case TK_SHIFT_RIGHT:op=type>5? i:op;type=type>5? 5:type;break;
 			}
-		}
+		}*/
     }
 	printf("%d\n",op);
     if(op==-1)
