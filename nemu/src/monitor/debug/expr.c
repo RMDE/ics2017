@@ -80,7 +80,7 @@ static bool make_token(char *e) {
   regmatch_t pmatch;
 
   nr_token = 0;
-	printf("%s\n",e);
+	printf("--e:%s--",e); //
 
   while (e[position] != '\0') {
     /* Try all rules one by one. */
@@ -96,7 +96,7 @@ static bool make_token(char *e) {
 			tokens[nr_token].str[j]='\0'; //
 		}
 		strncpy(tokens[nr_token].str,e+position,substr_len);  //
-		printf("str:%s\n",tokens[nr_token].str);     //
+		printf("str%d:%s\n",i,tokens[nr_token].str);     //
         position += substr_len;
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
