@@ -143,7 +143,7 @@ static int cmd_x(char *args){
 static int cmd_p(char *args){
 	bool *success;
 	int res;	
-	char *expre=strtok(NULL," ");
+	char *expre=strtok(NULL,"p");
 	printf("args=%s\nexpre=%s\n",args,expre);
 	success=(bool*)malloc(sizeof(bool));
 	*success=true;
@@ -158,7 +158,7 @@ static int cmd_p(char *args){
 		printf("The expression input is not legal\n");
 	}
 	else
-		printf("%d",res);
+		printf("%d\n",res);
 	return 0;
 }
 
