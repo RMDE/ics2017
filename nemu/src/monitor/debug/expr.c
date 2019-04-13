@@ -218,7 +218,7 @@ int find_dominated_op(int p,int q,bool *success)
             }
         }
     }
-	printf("%d,%d\n",type,op);
+	printf("%d\n",op);
     if(op==-1)
         *success=false;
     return op;
