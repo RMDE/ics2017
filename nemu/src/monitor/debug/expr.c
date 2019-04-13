@@ -154,6 +154,7 @@ bool check_parentheses(int p,int q,bool *success)
 				right++;
 			if(left<right)
 			{
+				printf("the par is not correct\n");
 				*success=false;
 				return false;
 			}
