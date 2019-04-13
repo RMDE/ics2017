@@ -127,7 +127,7 @@ static bool make_token(char *e) {
 			case TK_NOTYPE:break;
 			default: tokens[nr_token++].type=rules[i].token_type;
         }
-	    printf("%d:%s %d",nr_token-1,tokens[nr_token-1].str,tokens[nr_token-1].type);
+	  //  printf("%d:%s %d",nr_token-1,tokens[nr_token-1].str,tokens[nr_token-1].type);
          break;
       }
     }
