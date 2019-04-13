@@ -33,7 +33,7 @@ static struct rule {
   {"\\(", TK_LPAR},						  // the left parenthese
   {"\\)", TK_RPAR},						  // the right parenthese
   {"0x[0-9a-fA-F]{1,8}", TK_NUMBER_16},    // hexadecimal
-  {"\\d+", TK_NUMBER_10},				  // decimalism
+  {"[0-9]+", TK_NUMBER_10},				  // decimalism
   {"\\$eax\\|$EAX", TK_EAX},                     // $eax
   {"\\$ebx\\|$EBX", TK_EBX},                     // $ebx
   {"\\$ecx\\|$ECX", TK_ECX},                     // $ecx
