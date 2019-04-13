@@ -34,7 +34,7 @@ static struct rule {
   {"\\)", TK_RPAR},						  // the right parenthese
   {"0x[0-9a-fA-F]{1,8}", TK_NUMBER_16},    // hexadecimal
   {"[0-9]+", TK_NUMBER_10},				  // decimalism
-  {"$eax|$EAX", TK_EAX},                     // $eax
+  {"\\$eax", TK_EAX},                     // $eax
   {"\\$ebx\\|\\$EBX", TK_EBX},                     // $ebx
   {"\\$ecx\\|\\$ECX", TK_ECX},                     // $ecx
   {"\\$edx\\|\\$EDX", TK_EDX},                     // $edx
