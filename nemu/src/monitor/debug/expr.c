@@ -181,7 +181,7 @@ int find_dominated_op(int p,int q,bool *success)
 {
 	printf("now in find");
     int level =0;
-    int op=-1;
+    int op=-2;
     int type=15;//初始化
     for(int i=p;i<=q;i++)
     {
@@ -235,7 +235,7 @@ int find_dominated_op(int p,int q,bool *success)
 		}*/
     }
 	printf("%d\n",op);
-    if(op==-1)
+    if(op==-2)
         *success=false;
     return op;
 }
