@@ -144,7 +144,6 @@ static int cmd_p(char *args){
 	bool *success;
 	int res;	
 	char *expre=strtok(NULL,"p");
-	printf("args=%s\nexpre=%s\n",args,expre);
 	success=(bool*)malloc(sizeof(bool));
 	*success=true;
 	if(expre==NULL)
