@@ -148,13 +148,13 @@ static int cmd_p(char *args){
 	*success=true;
 	if(expre==NULL)
 	{
-		printf("Commond not find");
+		printf("Commond not find\n");
 		return 0;
 	}
 	res=expr(expre,success);
 	if(!*success)
 	{
-		printf("The expression input is not legal");
+		printf("The expression input is not legal\n");
 	}
 	else
 		printf("%d",res);
