@@ -157,7 +157,7 @@ static int cmd_p(char *args){
 		printf("The expression input is not legal\n");
 	}
 	else
-		printf("%d\n",res);
+		printf("%u\n",res);
 	return 0;
 }
 
