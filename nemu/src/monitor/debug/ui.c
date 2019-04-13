@@ -143,7 +143,7 @@ static int cmd_x(char *args){
 static int cmd_p(char *args){
 	bool *success;
 	int res;	
-	char *expre=strtok(NULL,"p");
+	char *expre=args+2;
 	success=(bool*)malloc(sizeof(bool));
 	*success=true;
 	if(expre==NULL)
