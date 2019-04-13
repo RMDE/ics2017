@@ -255,7 +255,7 @@ uint32_t eval(int p,int q,bool *success)
 		return val;
 	}
 	bool res=check_parentheses(p,q,success);
-	if(!success)
+	if(!*success)
 		return 0;
 	else if(res)
 	{
@@ -267,13 +267,13 @@ uint32_t eval(int p,int q,bool *success)
 	{
 		//将表达式再往下分成两个子表达式
 		int mid=find_dominated_op(p,q,success);
-		if(!success)
+		if(!*success)
 			return 0;
 		uint32_t left=eval(p,mid-1,success);
-		if(!success)
+		if(!*success)
 			return 0;
 		uint32_t right=eval(mid+1,q,success);
-		if(!success)
+		if(!*success)
 			return 0;
 		//evaluate the value
 		if(p==q-1) //单目运算符
