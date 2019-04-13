@@ -194,14 +194,14 @@ int find_dominated_op(int p,int q,bool *success)
             //判断是否是运算符且是否比之前的运算符优先级低，优先级一致则看顺序
             switch(tokens[i].type)
             {
-              case TK_EQ:op=type>0? i:op;type=type>0? 0:type;break;
-              case TK_NOT_EQ:op=type>0? i:op;type=type>0? 0:type;break;
-              case TK_LEQ:op=type>1? i:op;type=type>1? 1:type;break;
-              case TK_GEQ:op=type>1? i:op;type=type>1? 1:type;break;
-              case TK_L:op=type>1? i:op;type=type>1? 1:type;break;
-              case TK_G:op=type>1? i:op;type=type>1? 1:type;break;
-              case TK_AND:op=type>2? i:op;type=type>2? 2:type;break;
-              case TK_OR:op=type>2? i:op;type=type>2? 2:type;break;
+              case TK_AND:op=type>0? i:op;type=type>0? 0:type;break;
+              case TK_OR:op=type>0? i:op;type=type>0? 0:type;break;
+              case TK_EQ:op=type>1? i:op;type=type>1? 1:type;break;
+              case TK_NOT_EQ:op=type>1? i:op;type=type>1? 1:type;break;
+              case TK_LEQ:op=type>2? i:op;type=type>2? 2:type;break;
+              case TK_GEQ:op=type>2? i:op;type=type>2? 2:type;break;
+              case TK_L:op=type>2? i:op;type=type>2? 2:type;break;
+              case TK_G:op=type>2? i:op;type=type>2? 2:type;break;
               case '+':op=type>3? i:op;type=type>3? 3:type;break;
               case '-':op=type>3? i:op;type=type>3? 3:type;break;
               case '*':op=type>4? i:op;type=type>4? 4:type;break;
