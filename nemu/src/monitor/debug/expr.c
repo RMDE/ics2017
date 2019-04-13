@@ -309,7 +309,6 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-  printf("the end of make_token\n");///////
 
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
