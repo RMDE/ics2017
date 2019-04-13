@@ -184,7 +184,7 @@ bool check_parentheses(int p,int q,bool *success)
 
 int find_dominated_op(int p,int q,bool *success)
 {
-	printf("now in find\n");
+	printf("now in find");
     int level =0;
     int op=-1;
     for(int i=p;i<=q;i++)
@@ -218,6 +218,7 @@ int find_dominated_op(int p,int q,bool *success)
             }
         }
     }
+	printf("%d\n",op);
     if(op==-1)
         *success=false;
     return op;
