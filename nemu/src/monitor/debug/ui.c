@@ -1,5 +1,5 @@
 #include "monitor/monitor.h"
-#include "monitor/expr.h"
+//#include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "nemu.h"
 #include "expr.c"
@@ -45,6 +45,8 @@ static int cmd_info(char *args);
 static int cmd_x(char *args);
 
 static int cmd_p(char *args);
+
+uint32_t expr(char *e,bool *sucess);
 
 static struct {
   char *name;
