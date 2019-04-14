@@ -48,17 +48,12 @@ void free_wp(int number)
 		return;
 	}
 	WP *wp=head;
-	printf("%d",number);
-	printf("--0--\n");
 	if(head->NO==number) //特定监视点恰好位于第一个
 	{
-		printf("--1--\n");
 		head=head->next;
-		printf("--2--\n");
 		wp->next=free_;
-		printf("--3--\n");
 		free_=wp;
-		printf("Watchpoint %d deleted\n",head->NO);
+		printf("Watchpoint %d deleted\n",number);
 		return;
 	}
 	WP *p=head;
@@ -70,7 +65,7 @@ void free_wp(int number)
 			p->next=wp->next;
 			wp->next=free_;
 			free_=wp;
-			printf("Watchpoint %d deleted\n",p->next->NO);
+			printf("Watchpoint %d deleted\n",number);
 			return;
 		}
 		p=p->next;
