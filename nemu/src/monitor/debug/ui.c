@@ -216,6 +216,7 @@ static int cmd_w(char *args)
 
 static int cmd_d(char *args)
 {
+	printf("in dd");
 	if(args==NULL)//no argument given
 	{
 		printf("no command found\n");
