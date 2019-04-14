@@ -1,11 +1,10 @@
 #include "monitor/monitor.h"
 #include "monitor/expr.h"
-//#include "monitor/watchpoint.h"
+#include "monitor/watchpoint.h"
 #include "nemu.h"
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include "watchpoint.c"
 
 void cpu_exec(uint64_t);
 
@@ -51,6 +50,9 @@ static int cmd_w(char *args);
 static int cmd_d(char *args);
 
 uint32_t expr(char *e,bool *sucess,bool *flag);
+WP* new_wp();
+void free_wp(int number);
+bool list_watchpoint();
 
 static struct {
   char *name;
