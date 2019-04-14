@@ -207,10 +207,10 @@ static int cmd_w(char *args)
 	}
 	printf("Set watchpoint #%d\n",new->NO);
 	printf("expr=      = %s\nold_value = ",new->expr);
-	if(flag)
+	if(!flag)
 		printf("%d\n",new->old_val);
 	else
-		printf("%08x\n",new->old_val);
+		printf("0x%08x\n",new->old_val);
 	return 0;
 }
 
