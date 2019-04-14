@@ -281,10 +281,10 @@ uint32_t eval(int p,int q,bool *success,bool *flag)
 		int mid=find_dominated_op(p,q,success);
 		if(!*success)
 			return 0;
-		uint32_t left=eval(p,mid,success,flag);
+		uint32_t left=eval(p,mid-1,success,flag);
 		if(!*success)
 			return 0;
-		uint32_t right=eval(mid,q,success,flag);
+		uint32_t right=eval(mid+1,q,success,flag);
 		if(!*success)
 			return 0;
 		//evaluate the value
