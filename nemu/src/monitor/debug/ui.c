@@ -118,6 +118,7 @@ static int cmd_x(char *args){
 	int len=n-'0';
 	//printf("%d\n",len);
 	char *arg=strtok(NULL," ");
+	printf("%s\n",arg);
 	strtok(arg,"x");
 	arg=strtok(NULL," ");
 	unsigned int addr=0;
