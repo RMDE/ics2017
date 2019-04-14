@@ -229,7 +229,7 @@ uint32_t eval(int p,int q,bool *success,bool *flag)
 	if(p>q)
 	{
 		//Bad expression
-	//	return 0;
+		return 0;
 	}
 	else if(p==q)
 	{
@@ -263,7 +263,7 @@ uint32_t eval(int p,int q,bool *success,bool *flag)
 	}
 	else
 	{
-		/*if(p==q-1)//单目运算符
+		if(p==q-1)//单目运算符
 		{
 			uint32_t right=eval(q,q,success,flag);
 			if(!*success)
@@ -276,15 +276,15 @@ uint32_t eval(int p,int q,bool *success,bool *flag)
 				case '*':right=vaddr_read(right,4);
 			}
 			return right;
-		}*/						
+		}						
 		//将表达式再往下分成两个子表达式
 		int mid=find_dominated_op(p,q,success);
 		if(!*success)
 			return 0;
-		uint32_t left=eval(p,mid-1,success,flag);
+		uint32_t left=eval(p,mid,success,flag);
 		if(!*success)
 			return 0;
-		uint32_t right=eval(mid+1,q,success,flag);
+		uint32_t right=eval(mid,q,success,flag);
 		if(!*success)
 			return 0;
 		//evaluate the value
