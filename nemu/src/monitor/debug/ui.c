@@ -191,20 +191,21 @@ static int cmd_w(char *args)
 		printf("no command found\n");
 		return 0;
 	}
-	WP *new=new_wp();
-	if(!new)
-		return 0;
-	strcpy(new->expr,args);	
 	bool *success,*flag;
 	success=(bool*)malloc(sizeof(bool));
 	flag=(bool*)malloc(sizeof(bool));
 	*success=true;
-	new->old_val=expr(new->expr,success,flag);
+	uint32_t old=expr(args,success,flag);
 	if(!*success)
 	{
 		printf("cannot set the watchpoint\n");
 		return 0;
 	}
+	WP *new=new_wp();
+	if(!new)
+		return 0;
+	strcpy(new->expr,args);
+	new->old_val=old;	
 	printf("Set watchpoint #%d\n",new->NO);
 	printf("expr      = %s\nold_value = ",new->expr);
 	if(!flag)
