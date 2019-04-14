@@ -121,8 +121,11 @@ static int cmd_x(char *args){
 	strtok(arg,"x");
 	arg=strtok(NULL," ");
 	unsigned int addr=0;
-	for(int i=0;i<strlen(arg);i++)
-		addr=addr*16+(arg[i]-'0');
+	bool* success=(bool*)malloc(sizeof(bool));
+	*success=true;
+	addr=expr(arg,success,success);
+	//for(int i=0;i<strlen(arg);i++)
+	//	addr=addr*16+(arg[i]-'0');
 	//printf("%u\n",addr);
 	printf("Address         Dword block    Byte sequence\n");
 	for(int i=0;i<len;i++)
