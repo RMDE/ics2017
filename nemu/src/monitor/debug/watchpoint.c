@@ -42,24 +42,25 @@ WP* new_wp()
 
 void free_wp(int number)
 {
-	printf("in free\n");
 	if(!head)  //当已设监视点数为0时
 	{
 		printf("No settled watchpoint\n");
 		return;
 	}
-	printf("head exit\n");
 	WP *wp=head;
+	printf("--0--\n");
 	if(number==head->NO) //特定监视点恰好位于第一个
 	{
+		printf("--1--\n");
 		head=head->next;
+		printf("--2--\n");
 		wp->next=free_;
+		printf("--3--\n");
 		free_=wp;
 		printf("Watchpoint %d deleted",head->NO);
 		return;
 	}
 	WP *p=head;
-	printf("scan");
 	while(p->next)//遍历寻找特定监视点所在的节点
 	{
 		if(p->next->NO==number)
