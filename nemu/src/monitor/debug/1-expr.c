@@ -203,9 +203,8 @@ int find_dominated_op(int p,int q,bool *success)
               case TK_L:op=type>2? i:op;type=type>2? 2:type;break;
               case TK_G:op=type>2? i:op;type=type>2? 2:type;break;
               case '+':op=type>3? i:op;type=type>3? 3:type;break;
-              //case '-':op=type>3? i:op;type=type>3? 3:type;break;
+              case '-':op=type>3? i:op;type=type>3? 3:type;break;
 			  //case '-':if(op==i-1||(i==p&&tokens[p+1].type!='-'));else{op=type>3? i:op;type=type>3? 3:type;}break;
-              case '-':if(op==i-1&&tokens[i+1].type!='-');else{op=type>3? i:op;type=type>3? 3:type;}break;
               //case '*':op=type>4? i:op;type=type>4? 4:type;break;
               case '*':if(op==i-1){op=i;type=10;}else{op=type>4? i:op;type=type>4? 4:type;}break;
               case TK_DIV:op=type>4? i:op;type=type>4? 4:type;break;
