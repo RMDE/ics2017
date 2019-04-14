@@ -88,3 +88,41 @@ bool list_watchpoint()
 	print_wp(head);
 	return true;
 }
+
+
+WP* scan_watchpoint(WP *head)
+{
+	WP *p=head;
+	bool *success=(bool*)malloc(sizeof(bool));
+	while(p)
+	{
+		*success=true;
+		p->new_val=expr(p->expr,success,success);
+		if(p->new_val!=p->old_val)
+			return p;
+		else
+			p=p->next;
+	}
+	return NULL;
+}
+bool scan()
+{
+	WP* hint=scan_watchpoint(head);
+	bool flag=false;
+	bool *s=(bool*)malloc(sizeof(bool));
+	uint32_t addr;
+	while(hint)
+	{
+		*s=true;
+		addr=expr("$eip",s,s);
+		flag=true;
+		printf("Hit watchpoint %d at address 0x%08x\n",hint->NO,addr);
+		printf("expr      = %s\n",hint->expr);
+		printf("old value = 0x%08x\n",hint->old_val);
+		printf("new value = 0x%08x\n",hint->new_val);
+		hint->old_val=hint->new_val;
+		if(hint->next)
+			hint=scan_watchpoint(hint->next);
+	}
+	return flag;
+}
