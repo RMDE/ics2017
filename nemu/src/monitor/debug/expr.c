@@ -283,6 +283,20 @@ uint32_t eval(int p,int q,bool *success,bool *flag)
 	}
 	else
 	{
+		if(p==q-1)//单目运算符
+		{
+			uint32_t right=eval(q,q,success,flag);
+			if(!*success)
+				return 0;
+			switch(tokens[p].type)
+			{
+				case TK_NOT:right= !right;break;
+				case TK_INVERT:right= ~right;break;
+				case '-':right=-right;break;
+				case '*':right=vaddr_read(right,4);
+			}
+			return right;
+		}						
 		//将表达式再往下分成两个子表达式
 		int mid=find_dominated_op(p,q,success);
 		if(!*success)
@@ -294,7 +308,7 @@ uint32_t eval(int p,int q,bool *success,bool *flag)
 		if(!*success)
 			return 0;
 		//evaluate the value
-		if(mid==q-1) //单目运算符
+		/*if(mid==q-1) //单目运算符
 		{
 			switch(tokens[mid].type)
 			{
@@ -303,7 +317,7 @@ uint32_t eval(int p,int q,bool *success,bool *flag)
 				case '-':right=-right;break;
 				case '*':right=vaddr_read(right,4);
 			}
-		}						
+		}*/						
 	   	//双目运算符
 		switch(tokens[mid].type)
 		{
