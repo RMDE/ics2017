@@ -224,7 +224,6 @@ static int cmd_d(char *args)
 	}
 	int count;
 	sscanf(args,"%d",&count);
-	printf("%d",count);
 	free_wp(count);
 	return 0;
 }
