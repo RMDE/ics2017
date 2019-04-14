@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include "watchpoint.c"
 
 void cpu_exec(uint64_t);
 
@@ -45,6 +46,10 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
+static int cmd_w(char *args);
+
+static int cmd_d(char *args);
+
 uint32_t expr(char *e,bool *sucess,bool *flag);
 
 static struct {
@@ -58,8 +63,9 @@ static struct {
   {"si","Single step execution",cmd_si },
   {"info","Print Register",cmd_info},
   {"x","Scan Memory",cmd_x},
-  {"p","Evaluate the value",cmd_p}
-
+  {"p","Evaluate the value",cmd_p},
+  {"w","Add a watchpoint",cmd_w},
+  {"d","Delete a watchpoint",cmd_d}
   /* TODO: Add more commands */
 
 };
@@ -103,6 +109,12 @@ static int cmd_info(char *args){
 		for(int i=0;i<8;i++)
 			printf("%s:\t0x%08x\t%d\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
 		printf("eip:\t0x%08x\t%d\n",cpu.eip,cpu.eip);
+	}
+	else if(strcmp(arg,"w")==0)
+	{
+		bool res=list_watchpoint();
+		if(!res)
+			printf("No watchpoint now\n");
 	}
 	else
 	{
@@ -170,6 +182,48 @@ static int cmd_p(char *args){
 	return 0;
 }
 
+static int cmd_w(char *args)
+{
+	if(args==NULL)//no arguement given
+	{
+		printf("no command found\n");
+		return 0;
+	}
+	WP *new=new_wp();
+	if(!new)
+		return 0;
+	strcpy(new->expr,args);	
+	bool *success,*flag;
+	success=(bool*)malloc(sizeof(bool));
+	flag=(bool*)malloc(sizeof(bool));
+	*success=true;
+	new->old_val=expr(new->expr,success,flag);
+	if(!*success)
+	{
+		printf("cannot set the watchpoint\n");
+		return 0;
+	}
+	printf("Set watchpoint #%d\n",new->NO);
+	printf("expr=      = %s\nold_value = ",new->expr);
+	if(flag)
+		printf("%d\n",new->old_val);
+	else
+		printf("%08x\n",new->old_val);
+	return 0;
+}
+
+static int cmd_d(char *args)
+{
+	if(args==NULL)//no argument given
+	{
+		printf("no command found\n");
+		return 0;
+	}
+	int count;
+	sscanf(args,"%d",&count);
+	free_wp(count);
+	return 0;
+}
 
 static int cmd_help(char *args) {
   /* extract the first argument */
