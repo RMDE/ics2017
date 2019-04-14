@@ -67,7 +67,7 @@ static struct {
   {"x","Scan Memory",cmd_x},
   {"p","Evaluate the value",cmd_p},
   {"w","Add a watchpoint",cmd_w},
-  {"d","Delete a watchpoint",cmd_d}
+  {"d","Delete a watchpoint",cmd_d},
   /* TODO: Add more commands */
 
 };
@@ -206,7 +206,7 @@ static int cmd_w(char *args)
 		return 0;
 	}
 	printf("Set watchpoint #%d\n",new->NO);
-	printf("expr=      = %s\nold_value = ",new->expr);
+	printf("expr      = %s\nold_value = ",new->expr);
 	if(!flag)
 		printf("%d\n",new->old_val);
 	else
