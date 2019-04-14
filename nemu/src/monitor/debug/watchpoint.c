@@ -98,7 +98,8 @@ WP* scan_watchpoint(WP *head)
 	{
 		*success=true;
 		p->new_val=expr(p->expr,success,success);
-		printf("0x%08x\n",p->new_val);
+		*success=true;
+		printf("0x%08x\t0x%08x\n",expr("$eip",success,success),p->new_val);
 		if(p->new_val!=p->old_val)
 			return p;
 		else
