@@ -321,16 +321,16 @@ uint32_t eval(int p,int q,bool *success,bool *flag)
 	   	//双目运算符
 		switch(tokens[mid].type)
 		{
-			case TK_AND:return left&&right;
-			case TK_OR:return left||right;
-			case TK_EQ:return left==right;
-			case TK_NOT_EQ:return left!=right;
+			case TK_AND:*flag=true;return left&&right;
+			case TK_OR:*flag=true;return left||right;
+			case TK_EQ:*flag=true;return left==right;
+			case TK_NOT_EQ:*flag=true;return left!=right;
 			case TK_SHIFT_LEFT:return left<<right;
 			case TK_SHIFT_RIGHT:return left>>right;
-			case TK_LEQ:return left<=right;
-			case TK_GEQ:return left>=right;
-			case TK_L:return left<right;
-			case TK_G:return left>right;
+			case TK_LEQ:*flag=true;return left<=right;
+			case TK_GEQ:*flag=true;return left>=right;
+			case TK_L:*flag=true;return left<right;
+			case TK_G:*flag=true;return left>right;
 			case '+':return left+right;
 			case '-':return left-right;
 			case '*':return left*right;
