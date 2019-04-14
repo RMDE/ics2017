@@ -223,7 +223,7 @@ static int cmd_d(char *args)
 	}
 	int count;
 	sscanf(args,"%d\n",&count);
-	printf("%d",count);
+	printf("%s\n",args);
 	free_wp(count);
 	return 0;
 }
