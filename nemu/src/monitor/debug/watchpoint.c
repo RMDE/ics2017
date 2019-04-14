@@ -78,7 +78,7 @@ void print_wp(WP* head)
 {
 	if(head->next)
 		print_wp(head->next);
-	printf("%d\t%s\t%08x\n",head->NO,head->expr,head->old_val);
+	printf("%d\t%s\t0x%08x\n",head->NO,head->expr,head->old_val);
 }
 bool list_watchpoint()
 {
