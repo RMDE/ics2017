@@ -45,7 +45,7 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
-uint32_t expr(char *e,bool *sucess);
+uint32_t expr(char *e,bool *sucess,bool *flag);
 
 static struct {
   char *name;
@@ -141,23 +141,29 @@ static int cmd_x(char *args){
 }
 
 static int cmd_p(char *args){
-	bool *success;
+	bool *success,*flag;
 	int res;	
 	char *expre=args;
 	success=(bool*)malloc(sizeof(bool));
+	flag=(bool*)malloc(sizeof(bool));
 	*success=true;
 	if(expre==NULL)
 	{
 		printf("Commond not find\n");
 		return 0;
 	}
-	res=expr(expre,success);
+	res=expr(expre,success,flag);
 	if(!*success)
 	{
 		printf("The expression input is not legal\n");
 	}
 	else
-		printf("%d\n",res);
+	{
+		if(*flag)
+			printf("%d\n",res);
+		else
+			printf("%08x\n",res);
+	}
 	return 0;
 }
 

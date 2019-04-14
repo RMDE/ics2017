@@ -240,7 +240,7 @@ int find_dominated_op(int p,int q,bool *success)
     return op;
 }
 
-uint32_t eval(int p,int q,bool *success)
+uint32_t eval(int p,int q,bool *success,bool *flag)
 {
 	//printf("now in eval,%d,%d\n",p,q);
 	if(!*success)
@@ -256,17 +256,17 @@ uint32_t eval(int p,int q,bool *success)
 		uint32_t val;
 		switch(tokens[p].type)
 		{
-			case TK_NUMBER_16:sscanf(tokens[p].str,"%x",&val);break;
+			case TK_NUMBER_16:sscanf(tokens[p].str,"%x",&val);*flag=false;break;
 			case TK_NUMBER_10:sscanf(tokens[p].str,"%d",&val);break;
-			case TK_EAX:val=cpu.gpr[0]._32;break;
-			case TK_ECX:val=cpu.gpr[1]._32;break;
-			case TK_EDX:val=cpu.gpr[2]._32;break;
-			case TK_EBX:val=cpu.gpr[3]._32;break;
-			case TK_ESP:val=cpu.gpr[4]._32;break;
-			case TK_EBP:val=cpu.gpr[5]._32;break;
-			case TK_ESI:val=cpu.gpr[6]._32;break;
-			case TK_EDI:val=cpu.gpr[7]._32;break;
-			case TK_EIP:val=cpu.eip;break;
+			case TK_EAX:val=cpu.gpr[0]._32;*flag=false;break;
+			case TK_ECX:val=cpu.gpr[1]._32;*flag=false;break;
+			case TK_EDX:val=cpu.gpr[2]._32;*flag=false;break;
+			case TK_EBX:val=cpu.gpr[3]._32;*flag=false;break;
+			case TK_ESP:val=cpu.gpr[4]._32;*flag=false;break;
+			case TK_EBP:val=cpu.gpr[5]._32;*flag=false;break;
+			case TK_ESI:val=cpu.gpr[6]._32;*flag=false;break;
+			case TK_EDI:val=cpu.gpr[7]._32;*flag=false;break;
+			case TK_EIP:val=cpu.eip;*flag=false;break;
 			default:*success=0;return 0;
 		}
 		return val;
@@ -278,7 +278,7 @@ uint32_t eval(int p,int q,bool *success)
 	{
 		//The expression is surrounded by a matched pair of parentheses
 		//Throw away the parentheses
-		return eval(p+1,q-1,success);
+		return eval(p+1,q-1,success,flag);
 	}
 	else
 	{
@@ -286,10 +286,10 @@ uint32_t eval(int p,int q,bool *success)
 		int mid=find_dominated_op(p,q,success);
 		if(!*success)
 			return 0;
-		uint32_t left=eval(p,mid-1,success);
+		uint32_t left=eval(p,mid-1,success,flag);
 		if(!*success)
 			return 0;
-		uint32_t right=eval(mid+1,q,success);
+		uint32_t right=eval(mid+1,q,success,flag);
 		if(!*success)
 			return 0;
 		//evaluate the value
@@ -325,7 +325,7 @@ uint32_t eval(int p,int q,bool *success)
 	return 0;
 }
 
-uint32_t expr(char *e, bool *success) {
+uint32_t expr(char *e, bool *success,bool *flag) {
   if (!make_token(e)) {
     *success = false;
     return 0;
@@ -333,6 +333,6 @@ uint32_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
-
-  return eval(0,nr_token-1,success);
+  *flag=true;
+  return eval(0,nr_token-1,success,flag);
 }
