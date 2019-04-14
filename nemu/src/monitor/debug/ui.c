@@ -119,8 +119,8 @@ static int cmd_x(char *args){
 	//printf("%d\n",len);
 	char *arg=strtok(NULL," ");
 	printf("%s\n",arg);
-	strtok(arg,"x");
-	arg=strtok(NULL," ");
+	//strtok(arg,"x");
+	//arg=strtok(NULL," ");
 	unsigned int addr=0;
 	bool* success=(bool*)malloc(sizeof(bool));
 	*success=true;
