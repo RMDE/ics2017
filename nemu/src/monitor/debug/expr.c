@@ -321,5 +321,6 @@ uint32_t expr(char *e, bool *success,bool *flag) {
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
   *flag=true;
+  printf("start of eval");
   return eval(0,nr_token-1,success,flag);
 }

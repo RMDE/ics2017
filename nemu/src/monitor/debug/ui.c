@@ -124,8 +124,8 @@ static int cmd_x(char *args){
 	unsigned int addr=0;
 	bool* success=(bool*)malloc(sizeof(bool));
 	*success=true;
+	printf("start ot expr");
 	addr=expr(arg,success,success);
-	printf("addr=%08x",addr);
 	//for(int i=0;i<strlen(arg);i++)
 	//	addr=addr*16+(arg[i]-'0');
 	//printf("%u\n",addr);
