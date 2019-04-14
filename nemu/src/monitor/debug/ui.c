@@ -162,7 +162,7 @@ static int cmd_p(char *args){
 		if(*flag)
 			printf("%d\n",res);
 		else
-			printf("%08x\n",res);
+			printf("0x%08x\n",res);
 	}
 	return 0;
 }
