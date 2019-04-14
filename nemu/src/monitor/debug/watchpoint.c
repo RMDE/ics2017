@@ -50,6 +50,7 @@ void free_wp(int number)
 	WP *wp=head;
 	if(number==head->NO) //特定监视点恰好位于第一个
 	{
+		printf("head!");
 		head=head->next;
 		wp->next=free_;
 		free_=wp;
