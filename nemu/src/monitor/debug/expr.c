@@ -179,7 +179,7 @@ bool check_parentheses(int p,int q,bool *success)
 
 int find_dominated_op(int p,int q,bool *success)
 {
-	printf("now in find");
+	//printf("now in find");
     int level =0;
     int op=-1;
     int type=15;//初始化
@@ -216,7 +216,7 @@ int find_dominated_op(int p,int q,bool *success)
             }
         }
     }
-	printf("%d\n",op);
+	//printf("%d\n",op);
     if(op==-1)
         *success=false;
     return op;
@@ -224,7 +224,7 @@ int find_dominated_op(int p,int q,bool *success)
 
 uint32_t eval(int p,int q,bool *success,bool *flag)
 {
-	printf("now in eval,%d,%d\n",p,q);
+	//printf("now in eval,%d,%d\n",p,q);
 	if(!*success)
 		return 0;
 	if(p>q)
@@ -321,6 +321,5 @@ uint32_t expr(char *e, bool *success,bool *flag) {
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
   *flag=true;
-  printf("start of eval");
   return eval(0,nr_token-1,success,flag);
 }
