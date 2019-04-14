@@ -123,6 +123,8 @@ bool scan()
 		hint->old_val=hint->new_val;
 		if(hint->next)
 			hint=scan_watchpoint(hint->next);
+		else
+			break;
 	}
 	return flag;
 }
