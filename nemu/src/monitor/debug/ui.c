@@ -136,8 +136,9 @@ static int cmd_x(char *args){
 	//arg=strtok(NULL," ");
 	unsigned int addr=0;
 	bool* success=(bool*)malloc(sizeof(bool));
+	bool* success2=(bool*)malloc(sizeof(bool));
 	*success=true;
-	addr=expr(arg,success,success);
+	addr=expr(arg,success,success2);
 	//for(int i=0;i<strlen(arg);i++)
 	//	addr=addr*16+(arg[i]-'0');
 	//printf("%u\n",addr);
