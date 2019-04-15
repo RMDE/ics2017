@@ -118,7 +118,7 @@ bool scan()
 		flag=true;
 		*s1=true;
 		addr=expr("$eip",s1,s2);
-		printf("Hit watchpoint %d at address 0x%08x\n",hint->NO,addr-4);
+		printf("Hit watchpoint %d at address 0x%08x\n",hint->NO,addr);
 		printf("expr      = %s\n",hint->expr);
 		printf("old value = 0x%08x\n",hint->old_val);
 		printf("new value = 0x%08x\n",hint->new_val);
