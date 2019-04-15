@@ -99,8 +99,6 @@ WP* scan_watchpoint(WP *head)
 	{
 		*success=true;
 		p->new_val=expr(p->expr,success,flag);
-		*success=true;
-		printf("%s\t0x%08x\t0x%08x\n",p->expr,expr("$eip==0x10000a",success,success),p->new_val);
 		if(p->new_val!=p->old_val)
 			return p;
 		else
@@ -112,14 +110,18 @@ bool scan()
 {
 	WP* hint=scan_watchpoint(head);
 	bool flag=false;
-	bool *s=(bool*)malloc(sizeof(bool));
 	uint32_t addr;
+	bool *s1=(bool*)malloc(sizeof(bool));
+	bool *s2=(bool*)malloc(sizeof(bool));
+	if(hint)
+	{
+		*s1=true;
+		addr=expr("$eip",s1,s2);
+		printf("Hit watchpoint %d at address 0x%08x\n",hint->NO,addr-4);
+	}
 	while(hint)
 	{
-		*s=true;
-		addr=expr("$eip",s,s);
 		flag=true;
-		printf("Hit watchpoint %d at address 0x%08x\n",hint->NO,addr);
 		printf("expr      = %s\n",hint->expr);
 		printf("old value = 0x%08x\n",hint->old_val);
 		printf("new value = 0x%08x\n",hint->new_val);
