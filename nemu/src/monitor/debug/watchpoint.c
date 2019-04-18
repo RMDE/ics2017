@@ -113,11 +113,11 @@ bool scan()
 	uint32_t addr;
 	bool *s1=(bool*)malloc(sizeof(bool));
 	bool *s2=(bool*)malloc(sizeof(bool));
+	*s1=true;
+	addr=expr("$eip",s1,s2);
 	while(hint)
 	{
 		flag=true;
-		*s1=true;
-		addr=expr("$eip",s1,s2);
 		printf("Hit watchpoint %d at address 0x%08x\n",hint->NO,addr);
 		printf("expr      = %s\n",hint->expr);
 		printf("old value = 0x%08x\n",hint->old_val);
@@ -127,6 +127,8 @@ bool scan()
 			hint=scan_watchpoint(hint->next);
 		else
 			break;
+		*s1=true;
+		addr=expr("$eip",s1,s2);
 	}
 	return flag;
 }
