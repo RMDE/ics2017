@@ -20,9 +20,7 @@ void cpu_exec(uint64_t n) {
   nemu_state = NEMU_RUNNING;
 
   bool print_flag = n < MAX_INSTR_TO_PRINT;
-  printf("the start of cpu_exec\n");
   for (; n > 0; n --) {
-	printf("the start of loop\n");
     /* Execute one instruction, including instruction fetch,
      * instruction decode, and the actual execution. */
     exec_wrapper(print_flag);
