@@ -8,6 +8,7 @@ make_EHelper(add) {
 
 make_EHelper(sub) {
   //TODO();
+  printf("the start of sub\n");
   rtl_sltu(&t1,&id_dest->val,&id_src->val);//判断是否进位
   rtl_sub(&t0,&id_dest->val,&id_src->val);//将差值存储在t0中
   operand_write(id_dest,&t0);//将结果存入目标操作数
