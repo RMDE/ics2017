@@ -158,14 +158,14 @@ static inline void rtl_push(const rtlreg_t* src1) {
   // M[esp] <- src1
   //TODO();
   cpu.gpr[4]._32=c_sub(cpu.gpr[4]._32,4);
-  rtl_sm((rtlreg_t*)cpu.gpr[4]._32,4,src1);  //将src1所指数据放入esp所指内存
+  rtl_sm(&cpu.gpr[4]._32,4,src1);  //将src1所指数据放入esp所指内存
 }
 
 static inline void rtl_pop(rtlreg_t* dest) {
   // dest <- M[esp]
   // esp <- esp + 4
   //TODO();
-  rtl_lm(dest,(rtlreg_t*)cpu.gpr[4]._32,4); //将值从esp所指内存放入dest中
+  rtl_lm(dest,&cpu.gpr[4]._32,4); //将值从esp所指内存放入dest中
   cpu.gpr[4]._32=c_sub(cpu.gpr[4]._32,4);
 }
 
