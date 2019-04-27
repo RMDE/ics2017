@@ -213,10 +213,8 @@ static make_EHelper(2byte_esc) {
 }
 
 make_EHelper(real) {
-	printf("the start of real\n");
-	printf("cpu.eip:%08x\n",cpu.eip);
-	printf("eip:0x%08x\n",*eip);
   uint32_t opcode = instr_fetch(eip, 1);
+  printf("%08x\n",opcode);
   printf("%08x",*eip);////////////////
   decoding.opcode = opcode;
   set_width(opcode_table[opcode].width);
