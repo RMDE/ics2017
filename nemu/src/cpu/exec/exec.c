@@ -213,6 +213,7 @@ static make_EHelper(2byte_esc) {
 }
 
 make_EHelper(real) {
+	printf("the start of real\n");
   uint32_t opcode = instr_fetch(eip, 1);
   printf("%08x",*eip);////////////////
   decoding.opcode = opcode;
@@ -229,9 +230,7 @@ void exec_wrapper(bool print_flag) {
   decoding.p = decoding.asm_buf;
   decoding.p += sprintf(decoding.p, "%8x:   ", cpu.eip);
 #endif
-	printf("the start of exec_wrapper\n");//////////
   decoding.seq_eip = cpu.eip;
-  printf("%08x\n",cpu.eip);
   exec_real(&decoding.seq_eip);
   printf("the end of exec_rreal\n");
 
