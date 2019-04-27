@@ -231,7 +231,7 @@ void exec_wrapper(bool print_flag) {
 #endif
 	printf("the start of exec_wrapper\n");//////////
   decoding.seq_eip = cpu.eip;
-  printf("%08x/n",cpu.eip);
+  printf("%08x\n",cpu.eip);
   exec_real(&decoding.seq_eip);
   printf("the end of exec_rreal\n");
 
