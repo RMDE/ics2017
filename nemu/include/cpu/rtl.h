@@ -168,7 +168,7 @@ static inline void rtl_pop(rtlreg_t* dest) {
   //TODO();
   rtl_lm(dest,&cpu.gpr[4]._32,4); //将值从esp所指内存放入dest中
   printf("pop/return:0x%08x  0x%08x\n",vaddr_read(cpu.gpr[4]._32,4),*dest);
-  cpu.gpr[4]._32=c_sub(cpu.gpr[4]._32,4);
+  cpu.gpr[4]._32=c_add(cpu.gpr[4]._32,4);
 }
 
 static inline void rtl_eq0(rtlreg_t* dest, const rtlreg_t* src1) {
