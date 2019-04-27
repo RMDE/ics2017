@@ -28,7 +28,7 @@ make_EHelper(call) {
   //TODO();
   printf("the start of call\n");
   rtl_push(eip);
-  printf("eip:0x%08x",*eip);
+  printf("the end of push\n");
   rtl_add(&decoding.jmp_eip,eip,&id_dest->val);
   printf("jmp_eip:0x%08x",decoding.jmp_eip);
   decoding.is_jmp=1;
