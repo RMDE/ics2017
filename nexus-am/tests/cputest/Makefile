@@ -3,7 +3,7 @@ include $(AM_HOME)/Makefile.check
 
 ALL = $(basename $(notdir $(shell find tests/. -name "*.c")))
 
-all: $(addprefix Makefile., $(ALL))
+all: $(addprefix Makefile.,$(ALL))
 	@echo "" $(ALL)
 
 $(ALL): %: Makefile.%
