@@ -13,7 +13,12 @@ make_EHelper(and) {
 }
 
 make_EHelper(xor) {
-  TODO();
+  //TODO();
+  rtl_xor(&t0,&id_dest->val,&id_src->val);
+  operand_write(id_dest,&t0); //将计算结果存入目标操作数
+  rtl_set_CF(&tzero);//CF=0
+  rtl_set_OF(&tzero);//OF=0
+  rtl_update_ZFSF(&t0,id_dest->width);//更新SF，ZF
 
   print_asm_template2(xor);
 }

@@ -48,11 +48,11 @@ static inline void rtl_imul(rtlreg_t* dest_hi, rtlreg_t* dest_lo, const rtlreg_t
 
 static inline void rtl_div(rtlreg_t* q, rtlreg_t* r, const rtlreg_t* src1_hi, const rtlreg_t* src1_lo, const rtlreg_t* src2) {
   asm volatile("div %4" : "=a"(*q), "=d"(*r) : "d"(*src1_hi), "a"(*src1_lo), "r"(*src2));
-}   //带符号减法
+}   //带符号除法
 
 static inline void rtl_idiv(rtlreg_t* q, rtlreg_t* r, const rtlreg_t* src1_hi, const rtlreg_t* src1_lo, const rtlreg_t* src2) {
   asm volatile("idiv %4" : "=a"(*q), "=d"(*r) : "d"(*src1_hi), "a"(*src1_lo), "r"(*src2));
-}   //无符号减法
+}   //无符号除法
 
 static inline void rtl_lm(rtlreg_t *dest, const rtlreg_t* addr, int len) {
   *dest = vaddr_read(*addr, len);  
@@ -119,6 +119,14 @@ make_rtl_setget_eflags(OF)
 make_rtl_setget_eflags(ZF)
 make_rtl_setget_eflags(SF)
 
+#define make_rtl_setget_eflags(f) \
+  static inline void concat(rtl_set_, f) (const rtlreg_t* src) { \
+    cpu.eflags.f=*src; \
+  } \
+  static inline void concat(rtl_get_, f) (rtlreg_t* dest) { \
+    *dest=cpu.eflags.f; \
+  }
+
 static inline void rtl_mv(rtlreg_t* dest, const rtlreg_t *src1) {
   // dest <- src1
   //TODO();
@@ -129,7 +137,7 @@ static inline void rtl_not(rtlreg_t* dest) {
   // dest <- ~dest
   //TODO();
   t0=*dest;//将dest中的数据读入临时寄存器t0
-  t0=c_xor(t0,tzero);
+  t0=c_xor(t0,0x1);
   *dest=t0;
 }
 
@@ -157,7 +165,7 @@ static inline void rtl_pop(rtlreg_t* dest) {
   // dest <- M[esp]
   // esp <- esp + 4
   //TODO();
-  rtl_lm(dest,(rtlreg_t*)cpu.gpr[4]._32,4); //将值从esp所指内存放入dest中
+  rtl_lm(dest,4,(rtlreg_t*)cpu.gpr[4]._32); //将值从esp所指内存放入dest中
   cpu.gpr[4]._32=c_sub(cpu.gpr[4]._32,4);
 }
 
@@ -189,8 +197,8 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- src1[width * 8 - 1]
   //TODO();
   t0=*src1;
-  t1=c_shl(width,3);
-  t0=c_sar(t0,t1);
+  t1=c_shl(width,3); //先左移width字节
+  t0=c_sar(t0,t1); //零右移
   *dest=t0;
 }
 
@@ -210,9 +218,9 @@ static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   //TODO();
   t0=*result;
   t1=c_shl(width,3);
-  t1=c_sub(t1,1);
-  t0=c_shr(t0,t1);
-  cpu.eflags.SF=c_and(t0,0x1);
+  t1=c_sub(t1,1); //计算移动位数
+  t0=c_shr(t0,t1); //移动8*width-1位，此时符号位在最低位
+  cpu.eflags.SF=c_and(t0,0x1); //将符号位保留
 }
 
 static inline void rtl_update_ZFSF(const rtlreg_t* result, int width) {

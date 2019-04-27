@@ -7,7 +7,25 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) {
-  TODO();
+  //TODO();
+  rtl_sltu(&t1,&id_dest->val,&id_src->val);//判断是否进位
+  rtl_sub(&t0,&id_dest->val,&id_src->val);//将差值存储在t0中
+  operand_write(id_dest,&t0);//将结果存入目标操作数
+  rtl_update_ZFSF(&t0,id_dest->width);
+  //set CF
+  rtl_xori(&t1,&t1,0x1);//CF=C(n)^sub(=1)
+  rtl_set_CF(&t1);
+  //set OF
+  rtl_xori(&t3,&id_src->val,&0x0);
+  rtl_addi(&t3,&t3,0x1);//对减数取补码 -> t3
+  rtl_add(&t0,&t2,&t3); //补码之和 -> t0
+  rtl_sltu(&t0,&t0,&t3); //判断最高位是否进位 -> t0 ,即C(n)
+  rtl_andi(&t2,&id_src->val,0x7fffffff);//被减数去掉最高位 -> t2
+  rtl_andi(&t3,&t3,0x7fffffff); //减数去掉最高位 -> t3
+  rtl_add(&t1,&t2,&t3);// 和 -> t1
+  rtl_sari(&t1,&t1,31); //最高位 -> t1 ,即C(n-1)
+  rtl_xor(&t0,&t1,&t0); //OF=C(n-1)^C(n) -> t0
+  rtl_set_OF(&t0);
 
   print_asm_template2(sub);
 }
