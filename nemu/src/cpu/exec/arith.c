@@ -16,7 +16,7 @@ make_EHelper(sub) {
   rtl_xori(&t1,&t1,0x1);//CF=C(n)^sub(=1)
   rtl_set_CF(&t1);
   //set OF
-  rtl_xori(&t3,&id_src->val,&0x0);
+  rtl_xori(&t3,&id_src->val,0x0);
   rtl_addi(&t3,&t3,0x1);//对减数取补码 -> t3
   rtl_add(&t0,&t2,&t3); //补码之和 -> t0
   rtl_sltu(&t0,&t0,&t3); //判断最高位是否进位 -> t0 ,即C(n)
