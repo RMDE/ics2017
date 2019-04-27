@@ -13,9 +13,11 @@ const rtlreg_t tzero = 0;
 /* Ib, Iv */
 static inline make_DopHelper(I) {
   /* eip here is pointing to the immediate */
+	printf("----1---");//////////////
   op->type = OP_TYPE_IMM;
   op->imm = instr_fetch(eip, op->width);
   rtl_li(&op->val, op->imm);
+  printf("-------2-----");////////////
 
 #ifdef DEBUG
   snprintf(op->str, OP_STR_SIZE, "$0x%x", op->imm);
