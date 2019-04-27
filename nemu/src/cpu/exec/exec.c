@@ -218,6 +218,7 @@ make_EHelper(real) {
   decoding.opcode = opcode;
   printf("%08x\n",opcode);//////////////
   set_width(opcode_table[opcode].width);
+  printf("---\n");
   idex(eip, &opcode_table[opcode]);
 }
 
