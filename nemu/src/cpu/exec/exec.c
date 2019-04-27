@@ -213,8 +213,10 @@ static make_EHelper(2byte_esc) {
 }
 
 make_EHelper(real) {
+	printf("the start of real\n");///////////
   uint32_t opcode = instr_fetch(eip, 1);
   decoding.opcode = opcode;
+  printf("%08x\n",opcode);//////////////
   set_width(opcode_table[opcode].width);
   idex(eip, &opcode_table[opcode]);
 }
@@ -230,7 +232,7 @@ void exec_wrapper(bool print_flag) {
 #endif
   decoding.seq_eip = cpu.eip;
   exec_real(&decoding.seq_eip);
-	printf("the end of exec_real\n");
+	printf("the end of exec_real\n");///////////
 #ifdef DEBUG
   int instr_len = decoding.seq_eip - cpu.eip;
   sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");
