@@ -151,14 +151,14 @@ void difftest_step(uint32_t eip) {
   // Set `diff` as `true` if they are not the same.
   //TODO();
   if(r.eip!=cpu.eip) diff=true;
-  else if(r.eax!=cpu.eax) diff=true;
-  else if(r.ecx!=cpu.ecx) diff=true;
-  else if(r.edx!=cpu.edx) diff=true;
-  else if(r.ebx!=cpu.ebx) diff=true;
-  else if(r.esi!=cpu.esi) diff=true;
-  else if(r.edi!=cpu.edi) diff=true;
-  else if(r.esp!=cpu.esp) diff=true;
-  else if(r.ebp!=cpu.ebp) diff=true;
+  else if(r.eax!=cpu.eax) {diff=true;printf("%08x,%08x",r.eax,cpu.eax);}
+  else if(r.ecx!=cpu.ecx) {diff=true;printf("%08x,%08x",r.ecx,cpu.eax);}
+  else if(r.edx!=cpu.edx) {diff=true;printf("%08x,%08x",r.edx,cpu.eax);}
+  else if(r.ebx!=cpu.ebx) {diff=true;printf("%08x,%08x",r.ebx,cpu.ebx);}
+  else if(r.esi!=cpu.esi) {diff=true;printf("%08x,%08x",r.esi,cpu.esi);}
+  else if(r.edi!=cpu.edi) {diff=true;printf("%08x,%08x",r.edi,cpu.edi);}
+  else if(r.esp!=cpu.esp) {diff=true;printf("%08x,%08x",r.esp,cpu.esp);}
+  else if(r.ebp!=cpu.ebp) {diff=true;printf("%08x,%08x",r.ebp,cpu.ebp);}
 
   if (diff) {
     nemu_state = NEMU_END;
