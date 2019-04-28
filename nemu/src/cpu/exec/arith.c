@@ -45,6 +45,7 @@ make_EHelper(sub) {
   rtl_andi(&t0,&t0,0x1);//t0=C(n-1)
   rtl_xor(&t3,&t2,&t0);//t3=C(n)^C(n-1)
   rtl_set_OF(&t3);//set OF
+  printf("dest:%08x\n",id_dest->val);
 
 
   print_asm_template2(sub);
