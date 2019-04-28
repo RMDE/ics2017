@@ -137,7 +137,7 @@ static inline void rtl_not(rtlreg_t* dest) {
   // dest <- ~dest
   //TODO();
   t0=*dest;//将dest中的数据读入临时寄存器t0
-  t0=c_xor(t0,0x1);
+  t0=c_xor(t0,0xffffffff);
   *dest=t0;
 }
 
@@ -201,7 +201,7 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   t0=*src1;
   t1=c_shl(width,3); //先左移width字节
   t0=c_sar(t0,t1); //零右移
-  *dest=t0;
+  *dest=c_and(t0,0x1);
 }
 
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
