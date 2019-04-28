@@ -146,8 +146,6 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   //TODO();
   t0=*src1;
   t1=c_shl(width,3);
-  t2=c_shr(0xffffffff,t1); //使t1的低8*width位皆为1
-  t0=c_and(t0,t2);//取出t0的低8*width位
   t1=c_sub(0x2,t1); 
   t0=c_shl(t0,t1);//使src1[width*-1]变成最高位
   t0=c_sar(t0,t1); //符号右移
@@ -200,7 +198,8 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   //TODO();
   t0=*src1;
   t1=c_shl(width,3); //先左移width字节
-  t0=c_sar(t0,t1); //零右移
+  t1=c_sub(t1,0x1);
+  t0=c_sar(t0,t1); //符号右移
   *dest=c_and(t0,0x1);
 }
 
