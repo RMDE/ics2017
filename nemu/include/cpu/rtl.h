@@ -136,7 +136,7 @@ static inline void rtl_mv(rtlreg_t* dest, const rtlreg_t *src1) {
 static inline void rtl_not(rtlreg_t* dest) {
   // dest <- ~dest
   //TODO();
-  t0=*dest;//将dest中的数据读入临时寄存器t0
+  rtlreg_t t0=*dest;//将dest中的数据读入临时寄存器t0
   t0=c_xor(t0,0xffffffff);
   *dest=t0;
 }
@@ -144,8 +144,8 @@ static inline void rtl_not(rtlreg_t* dest) {
 static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
   //TODO();
-  t0=*src1;
-  t1=c_shl(width,3);
+  rtlreg_t t0=*src1;
+  rtlreg_t t1=c_shl(width,3);
   t1=c_sub(0x2,t1); 
   t0=c_shl(t0,t1);//使src1[width*-1]变成最高位
   t0=c_sar(t0,t1); //符号右移
@@ -172,7 +172,7 @@ static inline void rtl_pop(rtlreg_t* dest) {
 static inline void rtl_eq0(rtlreg_t* dest, const rtlreg_t* src1) {
   // dest <- (src1 == 0 ? 1 : 0)
   //TODO();
-  t0=*src1; //将值放入临时寄存器
+  rtlreg_t t0=*src1; //将值放入临时寄存器
   t0=!t0;
   *dest=t0;
 }
@@ -180,7 +180,7 @@ static inline void rtl_eq0(rtlreg_t* dest, const rtlreg_t* src1) {
 static inline void rtl_eqi(rtlreg_t* dest, const rtlreg_t* src1, int imm) {
   // dest <- (src1 == imm ? 1 : 0)
   //TODO();
-  t0=*src1;
+  rtlreg_t t0=*src1;
   t0=!(c_xor(t0,imm)); //各位相等皆取0
   *dest=t0;
 }
@@ -188,7 +188,7 @@ static inline void rtl_eqi(rtlreg_t* dest, const rtlreg_t* src1, int imm) {
 static inline void rtl_neq0(rtlreg_t* dest, const rtlreg_t* src1) {
   // dest <- (src1 != 0 ? 1 : 0)
   //TODO();
-  t0=*src1;
+  rtlreg_t t0=*src1;
   t0=!!t0;  //0 -> 0; 非0 -> 1
   *dest=t0;
 }
@@ -196,8 +196,8 @@ static inline void rtl_neq0(rtlreg_t* dest, const rtlreg_t* src1) {
 static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- src1[width * 8 - 1]
   //TODO();
-  t0=*src1;
-  t1=c_shl(width,3); //先左移width字节
+  rtlreg_t t0=*src1;
+  rtlreg_t t1=c_shl(width,3); //先左移width字节
   t1=c_sub(t1,0x1);
   t0=c_sar(t0,t1); //符号右移
   *dest=c_and(t0,0x1);
@@ -206,8 +206,8 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
   //TODO();
-  t0=*result;
-  t1=c_shl(width,3);
+  rtlreg_t t0=*result;
+  rtlreg_t t1=c_shl(width,3);
   t1=c_sub(32,t1);
   t1=c_shr(0xffffffff,t1); //使其最低width个字节每个位上全为1
   t0=c_add(t0,t1); //只取最低width个字节
@@ -217,8 +217,8 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
   //TODO();
-  t0=*result;
-  t1=c_shl(width,3);
+  rtlreg_t t0=*result;
+  rtlreg_t t1=c_shl(width,3);
   t1=c_sub(t1,1); //计算移动位数
   t0=c_shr(t0,t1); //移动8*width-1位，此时符号位在最低位
   cpu.eflags.SF=c_and(t0,0x1); //将符号位保留
