@@ -27,7 +27,7 @@ make_EHelper(sub) {
   rtl_xor(&t0,&t1,&t0); //OF=C(n-1)^C(n) -> t0
   rtl_set_OF(&t0);*/
   rtl_sub(&t0,&id_dest->val,&id_src->val);//t0=x-y
-  printf("%08x\n",t0);
+  printf("x-y:%08x\n",t0);
   operand_write(id_dest,&t0);
   rtl_update_ZFSF(&t0,id_dest->width);
   t1=id_src->val;
