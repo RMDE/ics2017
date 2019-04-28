@@ -28,7 +28,7 @@ make_EHelper(sub) {
   rtl_set_OF(&t0);*/
   rtl_sub(&t0,&id_dest->val,&id_src->val);//t0=x-y
   operand_write(id_dest,&t0);
-  printf("dest:%08x\n",id_dest->val);
+  printf("dest:%08x\n",t0);
   rtl_update_ZFSF(&t0,id_dest->width);
   t1=id_src->val;
   rtl_not(&t1);
