@@ -8,7 +8,7 @@ make_EHelper(add) {
 
 make_EHelper(sub) {
   //TODO();
-  rtl_sltu(&t1,&id_dest->val,&id_src->val);//判断是否进位
+ /* rtl_sltu(&t1,&id_dest->val,&id_src->val);//判断是否进位
   rtl_sub(&t0,&id_dest->val,&id_src->val);//将差值存储在t0中
   operand_write(id_dest,&t0);//将结果存入目标操作数
   rtl_update_ZFSF(&t0,id_dest->width);
@@ -25,7 +25,27 @@ make_EHelper(sub) {
   rtl_add(&t1,&t2,&t3);// 和 -> t1
   rtl_sari(&t1,&t1,31); //最高位 -> t1 ,即C(n-1)
   rtl_xor(&t0,&t1,&t0); //OF=C(n-1)^C(n) -> t0
-  rtl_set_OF(&t0);
+  rtl_set_OF(&t0);*/
+  rtl_sub(&t0,&id_dest->val,&id_src->val);//t0=x-y
+  operand_write(id_dest,&t0);
+  rtl_update_ZFSF(&t0,id_dest->width);
+  t1=id_src->val;
+  rtl_not(&t1);
+  rtl_addi(&t1,&t1,0x1);//取反码，将减法变为加法 t1=~y+1
+  rtl_add(&t0,&id_dest->val,&id_src->val);//t0=x+y
+  rtl_sltu(&t2,&t0,&id_src->val);//t2=C(n)
+  rtl_xori(&t3,&t2,0x1);//t3=C(n)^1
+  rtl_set_CF(&t3);//set CF
+  rtl_shli(&t0,&id_dest->val,0x1);
+  rtl_shri(&t0,&t0,1);//t0=(x<<1)>>1
+  rtl_shli(&t1,&t1,0x1);
+  rtl_shri(&t1,&t1,1);//t1=(t1<<1)>>1
+  rtl_add(&t0,&t0,&t1);//t0=t0+t1
+  rtl_shri(&t0,&t0,31);//t0 符号位
+  rtl_andi(&t0,&t0,0x1);//t0=C(n-1)
+  rtl_xor(&t3,&t2,&t0);//t3=C(n)^C(n-1)
+  rtl_set_OF(&t3);//set OF
+
 
   print_asm_template2(sub);
 }
