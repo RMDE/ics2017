@@ -158,7 +158,7 @@ static inline void rtl_push(const rtlreg_t* src1) {
   //TODO();
   cpu.gpr[4]._32=c_sub(cpu.gpr[4]._32,4);
   rtl_sm(&cpu.gpr[4]._32,4,src1);  //将src1所指数据放入esp所指内存
-  //printf("push/call:0x%08x  0x%08x\n",vaddr_read(cpu.gpr[4]._32,4),*src1);
+  printf("push/call:0x%08x  0x%08x\n",vaddr_read(cpu.gpr[4]._32,4),*src1);
 }
 
 static inline void rtl_pop(rtlreg_t* dest) {
