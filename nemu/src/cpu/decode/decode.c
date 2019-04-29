@@ -76,7 +76,6 @@ static inline make_DopHelper(r) {
   if (load_val) {
     rtl_lr(&op->val, op->reg, op->width);
   }
-  printf("%08x\n",op->val);
 
 #ifdef DEBUG
   snprintf(op->str, OP_STR_SIZE, "%%%s", reg_name(op->reg, op->width));
