@@ -97,7 +97,7 @@ make_EHelper(inc) {
  rtl_and(&t1,&t1,&t2);
  operand_write(id_dest,&t0);
  rtl_set_OF(&t1);//只有当最高位为0加1后变为1时溢出
-
+ rtl_update_ZFSF(&t0,id_dest->width);
   print_asm_template1(inc);
 }
 
@@ -110,8 +110,7 @@ make_EHelper(dec) {
  rtl_and(&t1,&t1,&t2);
  operand_write(id_dest,&t0);
  rtl_set_OF(&t1);//只有当最高位为1减1后变为0时溢出
-
-
+ rtl_update_ZFSF(&t0,id_dest->width);
   print_asm_template1(dec);
 }
 
