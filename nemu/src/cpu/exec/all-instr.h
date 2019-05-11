@@ -15,3 +15,4 @@ make_EHelper(ret);
 make_EHelper(and);
 make_EHelper(lea);
 make_EHelper(operand_size);
+make_EHelper(jmp);

@@ -6,5 +6,5 @@ make_EHelper(operand_size) {
   	decoding.is_operand_size_16 = true;
   exec_real(eip);
   decoding.is_operand_size_16 = false;
-	printf("this is in operand_size func\n");
+//	printf("this is in operand_size func\n");
 }
