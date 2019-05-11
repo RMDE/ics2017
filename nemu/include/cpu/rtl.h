@@ -211,7 +211,6 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   rtlreg_t t1=c_shl(width,3);
   t1=c_sub(32,t1);
   t1=c_shr(0xffffffff,t1); //使其最低width个字节每个位上全为1
-  printf("%08x/n",t1);
   t0=c_and(t0,t1); //只取最低width个字节
   cpu.eflags.ZF=!t0; //0 -> 1; 1 -> 0
 }
