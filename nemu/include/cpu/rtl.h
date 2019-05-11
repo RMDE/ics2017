@@ -137,7 +137,7 @@ static inline void rtl_not(rtlreg_t* dest) {
   // dest <- ~dest
   //TODO();
   rtlreg_t t0=*dest;//将dest中的数据读入临时寄存器t0
-  t0=!t0;
+  t0=~t0;
   *dest=t0;
 }
 
