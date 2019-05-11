@@ -76,11 +76,11 @@ make_EHelper(cmp) {
   rtl_sltu(&t3, &id_dest->val, &t2);
   rtl_update_ZFSF(&t2, id_dest->width);
  
-  rtl_sltu(&t0, &t2, &t2);
+  rtl_sltu(&t0, &id_dest->val, &t2);
   rtl_or(&t0, &t3, &t0);
   rtl_set_CF(&t0);
-  rtl_xor(&t0, &t2, &id_src->val);
-  rtl_xor(&t1, &t2, &t2);
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  rtl_xor(&t1, &id_dest->val, &t2);
   rtl_and(&t0, &t0, &t1);
   rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
@@ -149,6 +149,7 @@ make_EHelper(sbb) {
   rtl_get_CF(&t1);
   rtl_sub(&t2, &t2, &t1);
   operand_write(id_dest, &t2);
+  printf("%08x,%08x\n",id_dest->val,t2);
 
   rtl_update_ZFSF(&t2, id_dest->width);
 
