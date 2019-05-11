@@ -222,6 +222,7 @@ make_EHelper(real) {
 
 static inline void update_eip(void) {
   cpu.eip = (decoding.is_jmp ? (decoding.is_jmp = 0, decoding.jmp_eip) : decoding.seq_eip);
+  printf("%08x\n",decoding.jmp_eip);
 }
 
 void exec_wrapper(bool print_flag) {
