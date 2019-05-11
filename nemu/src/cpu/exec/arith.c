@@ -126,7 +126,6 @@ make_EHelper(adc) {
   rtl_get_CF(&t1);//低32位借位
   rtl_add(&t2, &t2, &t1);
   operand_write(id_dest, &t2);
-  printf("%08x,%08x\n",id_dest->val,t2);
 
   rtl_update_ZFSF(&t2, id_dest->width);
 
