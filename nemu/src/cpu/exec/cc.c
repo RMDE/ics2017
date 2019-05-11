@@ -29,7 +29,7 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
 	case CC_NS:rtl_get_SF(dest);rtl_not(dest);break;
 	case CC_NL:rtl_get_SF(&t1);rtl_get_OF(&t2);*dest=(t1==t2)? 0:1;rtl_not(dest);break;
 	case CC_NLE:rtl_get_SF(&t1);rtl_get_OF(&t2);*dest=(t1==t2)? 0:1;\
-			    rtl_get_ZF(&t0);rtl_and(dest,&t0,dest);rtl_not(dest);break;	
+			    rtl_get_ZF(&t0);rtl_or(dest,&t0,dest);rtl_not(dest);break;	
     default: panic("should not reach here");
     case CC_P: 
 	case CC_NP:panic("n86 does not have PF");

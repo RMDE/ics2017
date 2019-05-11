@@ -84,12 +84,12 @@ make_EHelper(cmp) {
   rtl_and(&t0, &t0, &t1);
   rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
-  printf("sub:%08x\n",t2);
+  //printf("sub:%08x\n",t2);
   rtl_get_ZF(&t0);
   rtl_get_SF(&t1);
   rtl_get_CF(&t2);
   rtl_get_OF(&t3);
-  printf("ZF:%d,SF:%d,CF:%d,OF:%d\n",t0,t1,t2,t3);
+  //printf("ZF:%d,SF:%d,CF:%d,OF:%d\n",t0,t1,t2,t3);
   print_asm_template2(cmp);
 }
 
