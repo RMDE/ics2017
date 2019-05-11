@@ -89,13 +89,28 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
-  TODO();
+ // TODO();
+ rtl_addi(&t0,&id_dest->val,0x1);
+ rtl_shri(&t1,&t0,0x1f);
+ rtl_shri(&t2,&id_dest->val,0x1f);
+ rtl_not(&t1);
+ rtl_and(&t1,&t1,&t2);
+ operand_write(id_dest,&t0);
+ rtl_set_OF(&t1);//只有当最高位为0加1后变为1时溢出
 
   print_asm_template1(inc);
 }
 
 make_EHelper(dec) {
-  TODO();
+  //TODO();
+ rtl_subi(&t0,&id_dest->val,0x1);
+ rtl_shri(&t1,&t0,0x1f);
+ rtl_shri(&t2,&id_dest->val,0x1f);
+ rtl_not(&t1);
+ rtl_and(&t1,&t1,&t2);
+ operand_write(id_dest,&t0);
+ rtl_set_OF(&t1);//只有当最高位为1减1后变为0时溢出
+
 
   print_asm_template1(dec);
 }
