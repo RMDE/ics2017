@@ -84,6 +84,7 @@ make_EHelper(setcc) {
 make_EHelper(not) {
  // TODO();
  t0=id_dest->val;
+ printf("%08x,%08x\n",id_dest->val,id_src->val);
  rtl_not(&t0);
  operand_write(id_dest,&t0);
 
