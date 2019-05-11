@@ -86,7 +86,6 @@ make_EHelper(not) {
  t0=id_dest->val;
  rtl_not(&t0);
  operand_write(id_dest,&t0);
- printf("%08x,%08x\n",id_dest->val,id_src->val);
 
   print_asm_template1(not);
 }
