@@ -145,10 +145,13 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
   //TODO();
   rtlreg_t t0=*src1;
+  printf("%08x,%d\n",t0,width);
   t1=c_shl(width,3);
   t1=c_sub(0x20,t1); 
   t0=c_shl(t0,t1);//使src1[width*-1]变成最高位
+  printf("%08x\n",t0);
   t0=c_sar(t0,t1); //符号右移
+  printf("%08x\n",t0);
   *dest=t0;
 }
 
