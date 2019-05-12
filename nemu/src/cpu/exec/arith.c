@@ -54,7 +54,7 @@ make_EHelper(sub) {
   rtl_not(&t1);
   rtl_addi(&t1,&t1,0x1);//取反码，将减法变为加法 t1=~y+1
   printf("~y:%08x\n",t1);
-  rtl_add(&t0,&id_dest->val,&id_src->val);//t0=x+y
+  rtl_add(&t0,&id_dest->val,&t1);//t0=x+y
   printf("x+(~y):%08x\n",t0);
   rtl_sltu(&t2,&t0,&t1);//t2=C(n)
   printf("cn:%d\n",t2);
