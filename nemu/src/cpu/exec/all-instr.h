@@ -34,3 +34,4 @@ make_EHelper(imul2);
 make_EHelper(sub);
 make_EHelper(sbb);
 make_EHelper(leave);
+make_EHelper(cltd);
