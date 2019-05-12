@@ -153,7 +153,7 @@ void difftest_step(uint32_t eip) {
   if(r.eip!=cpu.eip) {diff=true;printf("eip--Q:%08x,N:%08x\n",r.eip,cpu.eip);}
   else if(r.eax!=cpu.eax) {diff=true;printf("eax--Q:%08x,N:%08x\n",r.eax,cpu.eax);}
   else if(r.ecx!=cpu.ecx) {diff=true;printf("ecx--Q:%08x,N:%08x\n",r.ecx,cpu.eax);}
-  else if(r.edx!=cpu.edx) {diff=true;printf("edx--Q:%08x,N:%08x\n",r.edx,cpu.eax);}
+  else if(r.edx!=cpu.edx) {diff=true;printf("edx--Q:%08x,N:%08x\n",r.edx,cpu.edx);}
   else if(r.ebx!=cpu.ebx) {diff=true;printf("ebx--Q:%08x,N:%08x\n",r.ebx,cpu.ebx);}
   else if(r.esi!=cpu.esi) {diff=true;printf("esi--Q:%08x,N:%08x\n",r.esi,cpu.esi);}
   else if(r.edi!=cpu.edi) {diff=true;printf("edi--Q:%08x,N:%08x\n",r.edi,cpu.edi);}
