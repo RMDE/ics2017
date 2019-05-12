@@ -8,6 +8,8 @@ make_EHelper(mov) {
 make_EHelper(push) {
   //TODO();
   rtl_push(&id_dest->val);
+  if(id_dest->val==0x000000ff)
+	  cpu.eax=0;
   print_asm_template1(push);
 }
 
