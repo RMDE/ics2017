@@ -35,6 +35,7 @@ make_EHelper(sub);
 make_EHelper(sbb);
 make_EHelper(leave);
 make_EHelper(cltd);
+make_EHelper(cwtl);
 make_EHelper(idiv);
 make_EHelper(movsx);
 make_EHelper(jmp_rm);
