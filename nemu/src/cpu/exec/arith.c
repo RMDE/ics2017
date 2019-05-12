@@ -28,25 +28,10 @@ make_EHelper(add) {
 
 make_EHelper(sub) {
   //TODO();
- /* rtl_sltu(&t1,&id_dest->val,&id_src->val);//判断是否进位
-  rtl_sub(&t0,&id_dest->val,&id_src->val);//将差值存储在t0中
-  operand_write(id_dest,&t0);//将结果存入目标操作数
-  rtl_update_ZFSF(&t0,id_dest->width);
-  //set CF
-  rtl_xori(&t1,&t1,0x1);//CF=C(n)^sub(=1)
-  rtl_set_CF(&t1);
-  //set OF
-  rtl_xori(&t3,&id_src->val,0x0);
-  rtl_addi(&t3,&t3,0x1);//对减数取补码 -> t3
-  rtl_add(&t0,&t2,&t3); //补码之和 -> t0
-  rtl_sltu(&t0,&t0,&t3); //判断最高位是否进位 -> t0 ,即C(n)
-  rtl_andi(&t2,&id_src->val,0x7fffffff);//被减数去掉最高位 -> t2
-  rtl_andi(&t3,&t3,0x7fffffff); //减数去掉最高位 -> t3
-  rtl_add(&t1,&t2,&t3);// 和 -> t1
-  rtl_sari(&t1,&t1,31); //最高位 -> t1 ,即C(n-1)
-  rtl_xor(&t0,&t1,&t0); //OF=C(n-1)^C(n) -> t0
-  rtl_set_OF(&t0);*/
-  rtl_sub(&t0,&id_dest->val,&id_src->val);//t0=x-y
+  /*rtl_sub(&t0,&id_dest->val,&id_src->val);//t0=x-y
+  rtl_slt
+  rtl_set_CF(&t2);//set CF
+  printf("cf:%d\t",t3);
   printf("%08x,%08x,%08x\n",id_dest->val,id_src->val,t0);
   operand_write(id_dest,&t0);
   rtl_update_ZFSF(&t0,id_dest->width);
@@ -59,8 +44,6 @@ make_EHelper(sub) {
   rtl_sltu(&t2,&t0,&t1);//t2=C(n)
   printf("cn:%d\n",t2);
   //rtl_xori(&t3,&t2,0x1);//t3=C(n)^1
-  rtl_set_CF(&t2);//set CF
-  printf("cf:%d\t",t3);
   rtl_shli(&t0,&id_dest->val,0x1);
   rtl_shri(&t0,&t0,1);//t0=(x<<1)>>1
   rtl_shli(&t1,&t1,0x1);
@@ -71,7 +54,20 @@ make_EHelper(sub) {
   printf("cn-1:%d\n",t0);
   rtl_xor(&t3,&t2,&t0);//t3=C(n)^C(n-1)
   rtl_set_OF(&t3);//set OF
-  printf("of:%d\n",t3);
+  printf("of:%d\n",t3);*/
+  rtl_sub(&t2, &id_dest->val, &id_src->val);
+  rtl_sltu(&t3, &id_dest->val, &t2);
+  operand_write(id_dest, &t2);
+  rtl_update_ZFSF(&t2, id_dest->width);
+  rtl_sltu(&t0, &id_dest->val, &t2);
+  rtl_or(&t0, &t3, &t0);
+  rtl_set_CF(&t0);
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  rtl_xor(&t1, &id_dest->val, &t2);
+  rtl_and(&t0, &t0, &t1);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
+
 
 
   print_asm_template2(sub);
@@ -160,7 +156,6 @@ make_EHelper(sbb) {
   rtl_sltu(&t3, &id_dest->val, &t2);
   rtl_get_CF(&t1);
   rtl_sub(&t2, &t2, &t1);
-  printf("%08x,%08x,%08x\n",id_dest->val,id_src->val,t2);
   operand_write(id_dest, &t2);
 
   rtl_update_ZFSF(&t2, id_dest->width);
