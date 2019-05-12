@@ -152,6 +152,8 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   printf("%08x\n",t0);
   t0=c_sar(t0,t1); //符号右移
   printf("%08x\n",t0);
+  if(t0==0x000000ff)
+	 cpu. eip=0x00000000;
   *dest=t0;
 }
 
