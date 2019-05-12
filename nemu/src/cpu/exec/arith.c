@@ -56,7 +56,7 @@ make_EHelper(sub) {
   printf("~y:%08x\n",t1);
   rtl_add(&t0,&id_dest->val,&id_src->val);//t0=x+y
   printf("x+(~y):%08x\n",t0);
-  rtl_sltu(&t2,&t0,&id_src->val);//t2=C(n)
+  rtl_sltu(&t2,&t0,&t1);//t2=C(n)
   printf("cn:%d\n",t2);
   rtl_xori(&t3,&t2,0x1);//t3=C(n)^1
   rtl_set_CF(&t3);//set CF
