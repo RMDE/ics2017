@@ -67,9 +67,9 @@ make_EHelper(cwtl) {
 	rtl_sext(&t1,&cpu.eax,8);
 	rtl_slt(&t0,&t1,&tzero);
 	if(t0)
-		cpu.gpr[0]._8[1]=0xff;
+		cpu.gpr[0]._8[0]=0xff;
 	else
-		cpu.gpr[0]._8[1]=0x0;
+		cpu.gpr[0]._8[0]=0x0;
   }
   else {
     //TODO();
