@@ -63,6 +63,7 @@ make_EHelper(cltd) {
 make_EHelper(cwtl) {
 	printf("%08x\n",cpu.eax);
   if (decoding.is_operand_size_16) {
+	  printf("1");
     //TODO();
 	rtl_sext(&t1,&cpu.eax,8);
 	rtl_slt(&t0,&t1,&tzero);
@@ -73,7 +74,6 @@ make_EHelper(cwtl) {
   }
   else {
     //TODO();
-	printf("2");
 	rtl_sext(&cpu.eax,&cpu.eax,16);
   }
 
