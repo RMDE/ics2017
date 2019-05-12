@@ -73,6 +73,7 @@ make_EHelper(cwtl) {
   }
   else {
     //TODO();
+	printf("2");
 	rtl_sext(&cpu.eax,&cpu.eax,16);
   }
 
