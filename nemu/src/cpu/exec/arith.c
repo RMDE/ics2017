@@ -47,6 +47,7 @@ make_EHelper(sub) {
   rtl_xor(&t0,&t1,&t0); //OF=C(n-1)^C(n) -> t0
   rtl_set_OF(&t0);*/
   rtl_sub(&t0,&id_dest->val,&id_src->val);//t0=x-y
+  printf("%08x,%08x,%08x\n",id_dest->val,id_src->val,t0);
   operand_write(id_dest,&t0);
   rtl_update_ZFSF(&t0,id_dest->width);
   t1=id_src->val;
@@ -56,6 +57,7 @@ make_EHelper(sub) {
   rtl_sltu(&t2,&t0,&id_src->val);//t2=C(n)
   rtl_xori(&t3,&t2,0x1);//t3=C(n)^1
   rtl_set_CF(&t3);//set CF
+  printf("cf:%d\t",t3);
   rtl_shli(&t0,&id_dest->val,0x1);
   rtl_shri(&t0,&t0,1);//t0=(x<<1)>>1
   rtl_shli(&t1,&t1,0x1);
@@ -65,6 +67,7 @@ make_EHelper(sub) {
   rtl_andi(&t0,&t0,0x1);//t0=C(n-1)
   rtl_xor(&t3,&t2,&t0);//t3=C(n)^C(n-1)
   rtl_set_OF(&t3);//set OF
+  printf("of:%d\n",t3);
 
 
   print_asm_template2(sub);
