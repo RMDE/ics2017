@@ -40,3 +40,4 @@ make_EHelper(movsx);
 make_EHelper(jmp_rm);
 make_EHelper(div);
 make_EHelper(imul1);
+make_EHelper(call_rm);
