@@ -41,7 +41,7 @@ make_EHelper(leave) {
 make_EHelper(cltd) {
   if (decoding.is_operand_size_16) {
     //TODO();
-	rtl_sext(&t1,&cpu.eax,16);
+	rtl_sext(&t1,&cpu.eax,2);
 	rtl_slt(&t0,&t1,&tzero);
 	if(t0)
 		cpu.gpr[3]._16=0xffff;
@@ -63,7 +63,7 @@ make_EHelper(cltd) {
 make_EHelper(cwtl) {
   if (decoding.is_operand_size_16) {
     //TODO();
-	rtl_sext(&t1,&cpu.eax,8);
+	rtl_sext(&t1,&cpu.eax,1);
 	rtl_slt(&t0,&t1,&tzero);
 	if(t0)
 		cpu.gpr[0]._8[0]=0xff;
@@ -72,7 +72,7 @@ make_EHelper(cwtl) {
   }
   else {
     //TODO();
-	rtl_sext(&t1,&cpu.eax,16);
+	rtl_sext(&t1,&cpu.eax,2);
 	cpu.eax=t1;
   }
 
