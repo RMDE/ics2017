@@ -53,8 +53,11 @@ make_EHelper(sub) {
   t1=id_src->val;
   rtl_not(&t1);
   rtl_addi(&t1,&t1,0x1);//取反码，将减法变为加法 t1=~y+1
+  printf("~y:%08x\n",t1);
   rtl_add(&t0,&id_dest->val,&id_src->val);//t0=x+y
+  printf("x+(~y):%08x\n",t0);
   rtl_sltu(&t2,&t0,&id_src->val);//t2=C(n)
+  printf("cn:%d\n",t2);
   rtl_xori(&t3,&t2,0x1);//t3=C(n)^1
   rtl_set_CF(&t3);//set CF
   printf("cf:%d\t",t3);
@@ -65,6 +68,7 @@ make_EHelper(sub) {
   rtl_add(&t0,&t0,&t1);//t0=t0+t1
   rtl_shri(&t0,&t0,31);//t0 符号位
   rtl_andi(&t0,&t0,0x1);//t0=C(n-1)
+  printf("cn-1:%d\n",t0);
   rtl_xor(&t3,&t2,&t0);//t3=C(n)^C(n-1)
   rtl_set_OF(&t3);//set OF
   printf("of:%d\n",t3);
