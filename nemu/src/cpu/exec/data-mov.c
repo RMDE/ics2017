@@ -7,9 +7,14 @@ make_EHelper(mov) {
 
 make_EHelper(push) {
   //TODO();
+  //rtl_push(&id_dest->val);
+  //if(id_dest->val==0x000000ff)
+	//  cpu.eax=0;
+  printf("id_dest->width:%d\n",id_dest->width);
+  rtl_sext(&t0,&id_dest->val,id_dest->width);
+  printf("%08x\n",t0);
+  operand_write(id_dest,&t0);
   rtl_push(&id_dest->val);
-  if(id_dest->val==0x000000ff)
-	  cpu.eax=0;
   print_asm_template1(push);
 }
 
