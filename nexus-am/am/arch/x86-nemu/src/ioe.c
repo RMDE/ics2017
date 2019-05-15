@@ -41,7 +41,8 @@ void _draw_sync() {
 
 int _read_key() {
   unsigned key=_KEY_NONE;
-  if(!inb(0x64)&0x1)
-	  key=inl(0x60);
+  //if(inb(0x64)&0x1)
+	//  key=inl(0x60);
+  key=1;
   return key;
 }
