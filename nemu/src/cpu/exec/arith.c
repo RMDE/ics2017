@@ -123,8 +123,17 @@ make_EHelper(dec) {
 }
 
 make_EHelper(neg) {
-  TODO();
-
+ // TODO();
+ rtl_sub(&t2,&tzero, &id_dest->val);
+ t3=0x1;
+ rtl_shli(&t3,&t3,id_dest->width-1);
+ rtl_eqi(&t3,&t3,id_dest->val);
+ rtl_set_OF(&t3);
+ rtl_neq0(&t0,&id_dest->val);
+ rtl_set_CF(&t0);
+ operand_write(id_dest, &t2);
+ rtl_update_ZFSF(&t2, id_dest->width);
+	  
   print_asm_template1(neg);
 }
 
