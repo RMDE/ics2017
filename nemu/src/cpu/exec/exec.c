@@ -56,12 +56,12 @@ make_group(gp3,
 
   /* 0xfe */
 make_group(gp4,
-    EX(inc), EX(dec), EMPTY, EMPTY,
+    EXW(inc,1), EXW(dec,1), EMPTY, EMPTY,
     EMPTY, EMPTY, EMPTY, EMPTY)
 
   /* 0xff */
 make_group(gp5,
-    EXW(inc,1), EMPTY, EX(call_rm), EMPTY,
+    EX(inc), EX(dec), EX(call_rm), EMPTY,
     EX(jmp_rm), EMPTY, EX(push), EMPTY)
 
   /* 0x0f 0x01*/
