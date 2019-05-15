@@ -91,3 +91,23 @@ make_EHelper(not) {
 
   print_asm_template1(not);
 }
+
+make_EHelper(rol) {
+  t0=id_src->val;
+  t3=id_dest->val;
+  unsigned temcf=0;
+  t1=(id_dest->width<<3)-1;
+  while(t0!=0){
+	temcf=(t3>>t1)&0x1;
+	rtl_shli(&t3,&t3,1);
+	rtl_add(&t3,&t3,&temcf);
+	rtl_subi(&t0,&t0,1);
+  }
+  operand_write(id_dest,&t3);
+  rtl_set_CF(&temcf);
+  if(id_src->val==1) {
+	t2=(t3>>t1)&0x1;
+	t2=(t2!=temcf);
+	rtl_set_OF(&t2);
+  }
+}
