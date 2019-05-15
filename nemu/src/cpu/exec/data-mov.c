@@ -14,6 +14,7 @@ make_EHelper(push) {
   rtl_sext(&t0,&id_dest->val,id_dest->width);
   printf("%08x\n",t0);
   operand_write(id_dest,&t0);
+  printf("%08x,%d\n",id_dest->val,id_dest->width);
   rtl_push(&id_dest->val);
   printf("---\n");
   print_asm_template1(push);
