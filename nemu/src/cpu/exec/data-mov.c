@@ -15,6 +15,7 @@ make_EHelper(push) {
   printf("%08x\n",t0);
   operand_write(id_dest,&t0);
   rtl_push(&id_dest->val);
+  printf("---\n");
   print_asm_template1(push);
 }
 
