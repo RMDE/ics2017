@@ -12,7 +12,7 @@ make_EHelper(add) {
  t1=id_src->val;
  rtl_sltu(&t2,&t0,&t1);
  rtl_set_CF(&t2);//b=a+b < a
- //set SF 带符号溢出标志
+ //set OF 带符号溢出标志
  rtl_subi(&t2,&id_src->val,0x1);
  rtl_shr(&t1,&t1,&t2);//取符号位
  rtl_subi(&t2,&id_dest->val,0x1);
@@ -21,7 +21,7 @@ make_EHelper(add) {
  rtl_not(&t3);
  rtl_xor(&t0,&t0,&t1);
  rtl_and(&t0,&t3,&t0);
- rtl_set_SF(&t0); 
+ rtl_set_OF(&t0); 
 
  print_asm_template2(add);
 }
@@ -87,12 +87,12 @@ make_EHelper(cmp) {
   rtl_and(&t0, &t0, &t1);
   rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
-  //printf("sub:%08x\n",t2);
+
   rtl_get_ZF(&t0);
   rtl_get_SF(&t1);
   rtl_get_CF(&t2);
   rtl_get_OF(&t3);
-  //printf("ZF:%d,SF:%d,CF:%d,OF:%d\n",t0,t1,t2,t3);
+
   print_asm_template2(cmp);
 }
 
