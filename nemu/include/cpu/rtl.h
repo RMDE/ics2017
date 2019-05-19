@@ -192,7 +192,8 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   t1=c_sub(t1,0x1);
   t0=c_sar(t0,t1); //符号右移
   *dest=c_and(t0,0x1);
-  //*dest=((*src1)>>(width<<3-1))&0x1;
+  //rtlreg_t t0=width<<3-1;
+  //*dest=((*src1)>>t0)&0x1;
 }
 
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
