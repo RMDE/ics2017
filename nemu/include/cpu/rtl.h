@@ -136,9 +136,7 @@ static inline void rtl_mv(rtlreg_t* dest, const rtlreg_t *src1) {
 static inline void rtl_not(rtlreg_t* dest) {
   // dest <- ~dest
   //TODO();
-  rtlreg_t t0=*dest;//将dest中的数据读入临时寄存器t0
-  t0=~t0;
-  *dest=t0;
+  *dest=~(*dest);
 }
 
 static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
@@ -171,25 +169,19 @@ static inline void rtl_pop(rtlreg_t* dest) {
 static inline void rtl_eq0(rtlreg_t* dest, const rtlreg_t* src1) {
   // dest <- (src1 == 0 ? 1 : 0)
   //TODO();
-  rtlreg_t t0=*src1; //将值放入临时寄存器
-  t0=!t0;
-  *dest=t0;
+  *dest=!(*src1);
 }
 
 static inline void rtl_eqi(rtlreg_t* dest, const rtlreg_t* src1, int imm) {
   // dest <- (src1 == imm ? 1 : 0)
   //TODO();
-  rtlreg_t t0=*src1;
-  t0=!(c_xor(t0,imm)); //各位相等皆取0
-  *dest=t0;
+  *dest=!(c_xor(*src1,imm)); //各位相等皆取0
 }
 
 static inline void rtl_neq0(rtlreg_t* dest, const rtlreg_t* src1) {
   // dest <- (src1 != 0 ? 1 : 0)
   //TODO();
-  rtlreg_t t0=*src1;
-  t0=!!t0;  //0 -> 0; 非0 -> 1
-  *dest=t0;
+  *dest=!!(*dest);  //0 -> 0; 非0 -> 1
 }
 
 static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
@@ -200,6 +192,7 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   t1=c_sub(t1,0x1);
   t0=c_sar(t0,t1); //符号右移
   *dest=c_and(t0,0x1);
+  //*dest=((*src1)>>(width<<3-1))&0x1;
 }
 
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
@@ -211,6 +204,8 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   t1=c_shr(0xffffffff,t1); //使其最低width个字节每个位上全为1
   t0=c_and(t0,t1); //只取最低width个字节
   cpu.eflags.ZF=!t0; //0 -> 1; 1 -> 0
+  //*result=!(*result<<(32-width<<3));
+  //rtl_set_ZF(result);
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
@@ -221,6 +216,8 @@ static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   t1=c_sub(t1,1); //计算移动位数
   t0=c_shr(t0,t1); //移动8*width-1位，此时符号位在最低位
   cpu.eflags.SF=c_and(t0,0x1); //将符号位保留
+  //rtl_msb(result,result,width);
+  //rtl_set_SF(result);
 }
 
 static inline void rtl_update_ZFSF(const rtlreg_t* result, int width) {
