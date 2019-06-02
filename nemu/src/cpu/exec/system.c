@@ -7,12 +7,10 @@ make_EHelper(lidt) {
   //TODO();
   t0=id_dest->addr;
   cpu.idtr.limit=vaddr_read(t0,2);
-  printf("len: %08x\n",cpu.idtr.limit);
   if(id_dest->width==2)
 	cpu.idtr.base=vaddr_read(t0+2,4)&0x00ffffff;
   else
 	cpu.idtr.base=vaddr_read(t0+2,4);
-  printf("addr: %08x\n",cpu.idtr.base);
 
   print_asm_template1(lidt);
 }
