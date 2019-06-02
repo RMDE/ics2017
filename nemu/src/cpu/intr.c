@@ -28,10 +28,10 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   uint32_t cs=cpu.cs&0xffff;
   rtl_push(&cs);
   rtl_push(&ret_addr);
-  addr=data3.data.offset_31_16&0xffff;
+  addr=data3.data.offset_31_16&0xffff0000;
   printf("%08x\n",addr);
   addr<<=16;
-  addr=addr|(data3.data.offset_15_0&0xffff);
+  addr=addr|(data3.data.offset_15_0&0x0000ffff);
   cpu.eip=addr;
   printf("%08x\n",addr);
   /*rtl_push((rtlreg_t *)&cpu.flag);
