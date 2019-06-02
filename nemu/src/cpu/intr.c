@@ -20,7 +20,8 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   }data3;
   data3.data2=vaddr_read(addr,4);
   data3.data1=vaddr_read(addr+4,4);
-  printf("%x %x\n",data3.data1,data3.data2);
+  uint32_t x=vaddr_read(addr+2,4);
+  printf("%08x %08x %08x\n",data3.data1,data3.data2,x);
   if((data3.data.present&0x1)!=0x1)assert(0);
   rtl_push(&cpu.flag);
   uint32_t cs=cpu.cs&0xffff;
