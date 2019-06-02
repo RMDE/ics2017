@@ -32,17 +32,20 @@ typedef struct {
 	};
    };
   vaddr_t eip;
-  struct {
-	  unsigned CF : 1;
-	  unsigned : 5;
-	  unsigned ZF : 1;
-	  unsigned SF : 1;
-      unsigned : 1;
-	  unsigned IF : 1;
-      unsigned : 1;
-	  unsigned OF : 1;
-      unsigned : 20;
-  }eflags;
+  union {
+    struct {
+	    unsigned CF : 1;
+  	    unsigned : 5;
+  	    unsigned ZF : 1;
+  	    unsigned SF : 1;
+        unsigned : 1;
+	    unsigned IF : 1;
+        unsigned : 1;
+	    unsigned OF : 1;
+        unsigned : 20;
+    }eflags;
+	uint32_t flag;
+  };
   struct {
 	  unsigned limit : 16;
 	  unsigned base : 32;
