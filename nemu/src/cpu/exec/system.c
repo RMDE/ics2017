@@ -30,7 +30,7 @@ make_EHelper(mov_cr2r) {
 
 make_EHelper(int) {
   TODO();
-  //raise_intr(id_src->val,id_dest->addr);
+  //raise_intr(id_dest->val,cpu.eip);
 
   print_asm("int %s", id_dest->str);
 
