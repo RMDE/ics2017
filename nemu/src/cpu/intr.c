@@ -20,7 +20,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   }data3;
   data3.data2=vaddr_read(addr,4);
   data3.data1=vaddr_read(addr+4,4);
-  if(data3.data.present!=0x1)assert(0);
+  if((data3.data.present&0x1)!=0x1)assert(0);
   rtl_push(&cpu.flag);
   uint32_t cs=cpu.cs&0xffff;
   rtl_push(&cs);
