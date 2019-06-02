@@ -30,7 +30,7 @@ make_EHelper(mov_cr2r) {
 
 make_EHelper(int) {
   //TODO();
-  printf("%d %d",id_dest->val,id_src->val);
+  printf("%d %d %d %d",id_dest->val,id_dest->imm,id_src->val,id_src->imm);
   raise_intr(id_dest->val,cpu.eip);
  
   print_asm("int %s", id_dest->str);
