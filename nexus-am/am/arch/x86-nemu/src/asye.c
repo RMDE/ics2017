@@ -1,7 +1,8 @@
+#include<stdio.h>
 #include <am.h>
 #include <x86.h>
 
-static _RegSet* (*H)(_Event, _RegSet*) = NULL;
+static _RegSet* (*H)(_Event,_RegSet*) = NULL;
 
 void vecsys();
 void vecnull();
@@ -34,7 +35,8 @@ void _asye_init(_RegSet*(*h)(_Event, _RegSet*)) {
 
   // -------------------- system call --------------------------
   idt[0x80] = GATE(STS_TG32, KSEL(SEG_KCODE), vecsys, DPL_USER);
-
+  printf("IDT addr:%08x",&idt[0]);
+  printf("IDT[0x80]:%08x",idt[127]);
   set_idt(idt, sizeof(idt));
 
   // register event handler
