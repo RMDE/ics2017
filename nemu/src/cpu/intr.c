@@ -7,7 +7,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
    */
 
   //TODO();
-  /*printf("%08x\n",cpu.idtr.base);
+  printf("%08x\n",cpu.idtr.base);
   uint32_t addr=cpu.idtr.base+NO*8;
   printf("%08x\n",addr);
   //GateDesc data;
@@ -31,8 +31,8 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   addr=data3.data.offset_31_16&0xffff;
   addr<<=16;
   addr=addr|(data3.data.offset_15_0&0xffff);
-  cpu.eip=addr;*/
-  rtl_push((rtlreg_t *)&cpu.flag);
+  cpu.eip=addr;
+  /*rtl_push((rtlreg_t *)&cpu.flag);
   rtl_push((rtlreg_t*)&cpu.cs);
   rtl_push((rtlreg_t*)&ret_addr);
   uint32_t idtr_base=cpu.idtr.base;
@@ -42,7 +42,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   offset=eip_low|eip_high;
   printf("%08x\n",offset);
   decoding.jmp_eip=offset;
-  decoding.is_jmp=true;
+  decoding.is_jmp=true;*/
 }
 
 void dev_raise_intr() {
