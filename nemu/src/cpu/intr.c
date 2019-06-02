@@ -29,6 +29,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   rtl_push(&cs);
   rtl_push(&ret_addr);
   addr=data3.data.offset_31_16&0xffff;
+  printf("%08x\n",addr);
   addr<<=16;
   addr=addr|(data3.data.offset_15_0&0xffff);
   cpu.eip=addr;
