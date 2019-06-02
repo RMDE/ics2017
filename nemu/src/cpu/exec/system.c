@@ -6,6 +6,7 @@ void diff_test_skip_nemu();
 make_EHelper(lidt) {
   //TODO();
   t0=id_src->addr;
+  printf("%08x,%08x\n",id_src->addr,id_dest->addr);
   printf("%d %d\n",id_dest->width,id_src->width);
   cpu.idtr.limit=vaddr_read(t0,2);
   printf("len: %08x\n",cpu.idtr.limit);
