@@ -6,12 +6,13 @@ void diff_test_skip_nemu();
 make_EHelper(lidt) {
   //TODO();
   t0=id_dest->addr;
-  cpu.idtr.limit=vaddr_read(t0,2);
+  printf("%d\n",id_dest->width);
+  cpu.idtr.limit=vaddr_read(t0+id_dest->width,2);
   printf("len: %08x\n",cpu.idtr.limit);
   if(id_dest->width==2)
-	cpu.idtr.base=vaddr_read(t0+2,3)&0xffffff;
+	cpu.idtr.base=vaddr_read(t0,3)&0xffffff;
   else
-	cpu.idtr.base=vaddr_read(t0+2,4);
+	cpu.idtr.base=vaddr_read(t0,4);
   printf("addr: %08x\n",cpu.idtr.base);
 
   print_asm_template1(lidt);
