@@ -43,6 +43,11 @@ typedef struct {
 	  unsigned OF : 1;
       unsigned : 20;
   }eflags;
+  struct {
+	  unsigned limit : 16;
+	  unsigned base : 32;
+  }idtr;
+  uint16_t cs;
 } CPU_state;
 
 extern CPU_state cpu;
