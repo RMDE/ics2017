@@ -9,6 +9,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   //TODO();
   printf("%08x\n",cpu.idtr.base);
   uint32_t addr=cpu.idtr.base+NO*8;
+  printf("%08x\n",addr);
   //GateDesc data;
   struct{
 	union {
