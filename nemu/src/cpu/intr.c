@@ -16,7 +16,6 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 			uint32_t data1;
 			uint32_t data2;
 		};
-		
 	};
   }data3;
   data3.data2=vaddr_read(addr,4);
