@@ -42,6 +42,7 @@ _RegSet* do_syscall(_RegSet *r) {
   printf("%d\n",r->eax);
   printf("%d\n",r->error_code);
   printf("%d\n",r->irq);
+  printf("%d\n",r->cs);
 
   switch (a[0]) {
 	case 8: SYSCALL_ARG1(r)=sys_none();printf("in syscall\n");break;
