@@ -43,14 +43,11 @@ static inline uintptr_t sys_exit(int code){
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
-  printf("%x\n",r->eax);
-  printf("eip:%08x\n",r->eip);
 
   switch (a[0]) {
 	case 0: SYSCALL_ARG1(r)=sys_none();break;
 	case 4: SYSCALL_ARG1(r)=sys_exit(0);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
-  printf("return00\n");
   return NULL;
 }

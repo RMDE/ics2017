@@ -46,7 +46,6 @@ make_EHelper(iret) {
   //TODO();
   rtlreg_t addr;
   rtl_pop(&addr);
-  printf("%08x\n",addr);
   decoding.jmp_eip=addr;
   decoding.is_jmp=true;
   rtl_pop((rtlreg_t*)&cpu.cs);
