@@ -3,6 +3,9 @@
 #include "fs.h"
 
 int mm_brk(uint32_t new_brk);
+static inline uintptr_t sys_none(){
+	return 1;
+}
 
 static inline uintptr_t sys_open(uintptr_t pathname, uintptr_t flags, uintptr_t mode) {
   TODO();
@@ -38,6 +41,7 @@ _RegSet* do_syscall(_RegSet *r) {
   a[0] = SYSCALL_ARG1(r);
 
   switch (a[0]) {
+	case 8: SYSCALL_ARG1(r)=sys_none();break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
