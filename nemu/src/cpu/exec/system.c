@@ -44,9 +44,10 @@ make_EHelper(int) {
 
 make_EHelper(iret) {
   //TODO();
-  rtl_pop(eip);
-  printf("%08x\n",*eip);
-  decoding.jmp_eip=*eip;
+  rtlreg_t addr;
+  rtl_pop(&addr);
+  printf("%08x\n",addr);
+  decoding.jmp_eip=addr;
   decoding.is_jmp=true;
   rtl_pop((rtlreg_t*)&cpu.cs);
   rtl_pop(&cpu.flag);
