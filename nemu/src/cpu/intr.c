@@ -29,6 +29,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   addr<<=16;
   addr=addr|(data3.data.offset_15_0&0x0000ffff);
   decoding.jmp_eip=addr;
+  printf("%08xccc\n",addr);
   decoding.is_jmp=true;
 }
 
