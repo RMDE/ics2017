@@ -39,10 +39,9 @@ static inline uintptr_t sys_brk(uintptr_t new_brk) {
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
-  printf("%d\n",r->eax);
-  printf("%d\n",r->error_code);
-  printf("%d\n",r->irq);
-  printf("%d\n",r->cs);
+  printf("%x\n",r->eax);
+  printf("%x\n",r->error_code);
+  printf("%x\n",r->irq);
 
   switch (a[0]) {
 	case 8: SYSCALL_ARG1(r)=sys_none();printf("in syscall\n");break;
