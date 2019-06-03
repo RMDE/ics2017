@@ -45,6 +45,7 @@ make_EHelper(int) {
 make_EHelper(iret) {
   //TODO();
   rtl_pop(eip);
+  printf("%08x\n",*eip);
   rtl_pop((rtlreg_t*)&cpu.cs);
   rtl_pop(&cpu.flag);
 
