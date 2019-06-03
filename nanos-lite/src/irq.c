@@ -9,7 +9,7 @@ static _RegSet* do_event(_Event e, _RegSet* r) {
 	case 4:do_syscall(r);break;
     default: panic("Unhandled event ID = %d", e.event);
   }
-
+  printf("return\n");
   return NULL;
 }
 

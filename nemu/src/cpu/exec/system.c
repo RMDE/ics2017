@@ -44,6 +44,7 @@ make_EHelper(int) {
 
 make_EHelper(iret) {
   //TODO();
+  printf("in iret");
   rtl_pop(eip);
   printf("iret");
   decoding.jmp_eip=*eip;
