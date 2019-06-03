@@ -18,7 +18,10 @@ static inline uintptr_t sys_write(uintptr_t fd, uintptr_t buf, uintptr_t len) {
 	  char* p=(char*)buf;
 	  int i;
 	  for(i=0;i<len;i++)
+	  {
 		  _putc(*p);
+		  p++;
+	  }
 	  return i;
   }
   return -1;
@@ -53,7 +56,7 @@ _RegSet* do_syscall(_RegSet *r) {
   a[1] = SYSCALL_ARG2(r);
   a[2] = SYSCALL_ARG3(r);
   a[3] = SYSCALL_ARG4(r);
-  printf("%d %d %d %d\n",a[0],a[1],a[2],a[3]);
+  //printf("%d %d %d %d\n",a[0],a[1],a[2],a[3]);
   switch (a[0]) {
 	case 0: SYSCALL_ARG1(r)=sys_none();break;
 	case 3: SYSCALL_ARG1(r)=sys_write(a[1],a[2],a[3]);break;
