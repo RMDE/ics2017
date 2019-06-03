@@ -44,6 +44,7 @@ _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
   printf("%x\n",r->eax);
+  printf("eip:%08x\n",r->eip);
 
   switch (a[0]) {
 	case 0: SYSCALL_ARG1(r)=sys_none();break;
