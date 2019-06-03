@@ -40,10 +40,9 @@ _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
   printf("%d\n",a[0]);
-  printf("%d\n",r->eax);
 
   switch (a[0]) {
-//	case 8: SYSCALL_ARG1(r)=sys_none();printf("in syscall\n");break;
+	case 8: SYSCALL_ARG1(r)=sys_none();printf("in syscall\n");break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
