@@ -1,7 +1,6 @@
 #include "common.h"
 #include "syscall.h"
 #include "fs.h"
-
 int mm_brk(uint32_t new_brk);
 static inline uintptr_t sys_none(){
 	return 1;
@@ -49,7 +48,6 @@ static inline uintptr_t sys_exit(int code){
 	_halt(code);
 	return 1;
 }
-
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
