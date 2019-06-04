@@ -27,7 +27,6 @@ int _open(const char *path, int flags, mode_t mode) {
 
 int _write(int fd, void *buf, size_t count){
   //_exit(SYS_write);
-  printf("ccdd\n");
   _syscall_(SYS_write,fd,(intptr_t)buf,count);
 }
 extern char _end;
@@ -38,9 +37,10 @@ void *_sbrk(intptr_t increment){
   new=old+increment;
   if(_syscall_(SYS_brk,new,0,0)==0){
       brk=new;
+	  Log("call _brk");
 	  return (void*)old;
   }
-
+  Log("not call _brk");
   return (void *)-1;
 }
 
