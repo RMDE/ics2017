@@ -27,10 +27,12 @@ int _open(const char *path, int flags, mode_t mode) {
 
 int _write(int fd, void *buf, size_t count){
   //_exit(SYS_write);
+  printf("ccdd\n");
   _syscall_(SYS_write,fd,(intptr_t)buf,count);
 }
 
 void *_sbrk(intptr_t increment){
+  
   return (void *)-1;
 }
 
