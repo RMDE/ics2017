@@ -58,9 +58,9 @@ _RegSet* do_syscall(_RegSet *r) {
   //printf("%d %d %d %d\n",a[0],a[1],a[2],a[3]);
   switch (a[0]) {
 	case 0: SYSCALL_ARG1(r)=sys_none();break;
-	case 3: Log("ccc");SYSCALL_ARG1(r)=sys_write(a[1],a[2],a[3]);break;
+	case 3: Log("call SYS_write");SYSCALL_ARG1(r)=sys_write(a[1],a[2],a[3]);break;
 	case 4: SYSCALL_ARG1(r)=sys_exit(0);break;
-	case 9: Log("call");SYSCALL_ARG1(r)=sys_brk(a[1]);break;
+	case 9: Log("call SYS_brk");SYSCALL_ARG1(r)=sys_brk(a[1]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   return NULL;
