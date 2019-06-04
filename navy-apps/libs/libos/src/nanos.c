@@ -36,7 +36,7 @@ void *_sbrk(intptr_t increment){
   intptr_t old,new;
   old=brk;
   new=old+increment;
-  if(_syscall_(SYS_brk,new)==0){
+  if(_syscall_(SYS_brk,new,0,0)==0){
       brk=new;
 	  return (void*)old;
   }
