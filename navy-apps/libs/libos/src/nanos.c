@@ -8,7 +8,7 @@
 
 // TODO: discuss with syscall interface
 #ifndef __ISA_NATIVE__
-extern _end;
+
 // FIXME: this is temporary
 
 int _syscall_(int type, uintptr_t a0, uintptr_t a1, uintptr_t a2){
@@ -30,13 +30,17 @@ int _write(int fd, void *buf, size_t count){
   printf("ccdd\n");
   _syscall_(SYS_write,fd,(intptr_t)buf,count);
 }
-
+extern char _end;
+static intptr_t brk=(intptr_t)&_end;
 void *_sbrk(intptr_t increment){
   intptr_t old,new;
-  old=_end;
+  old=brk;
   new=old+increment;
-  if(_syscall_(SYS_brk,new)==0)
-	  return old;
+  if(_syscall_(SYS_brk,new)==0){
+      brk=new;
+	  return (void*)old;
+  }
+
   return (void *)-1;
 }
 
