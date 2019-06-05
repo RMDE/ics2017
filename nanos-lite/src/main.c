@@ -30,7 +30,7 @@ int main() {
 
   init_fs();
 
-  uint32_t entry = loader(NULL, "tests/hello/build/hello.c");
+  uint32_t entry = loader(NULL, "$(NAVY_HOME)/tests/hello/build/hello.c");
   ((void (*)(void))entry)();
 
   panic("Should not reach here");
