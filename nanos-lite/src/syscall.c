@@ -13,27 +13,12 @@ static inline uintptr_t sys_open(uintptr_t pathname, uintptr_t flags, uintptr_t 
 
 static inline uintptr_t sys_write(uintptr_t fd, uintptr_t buf, uintptr_t len) {
   //TODO();
-  if(fd==1||fd==2){
-	  char* p=(char*)buf;
-	  int i;
-	  for(i=0;i<len;i++)
-	  {
-		  _putc(*p);
-		  p++;
-	  }
-	  return i;
-  }
-  else{
-	  fs_write(fd,(void*)buf,(size_t)len);
-	  return len;
-  }
-  return -1;
+  return fs_write(fd,(void*)buf,(size_t)len);
 }
 
 static inline uintptr_t sys_read(uintptr_t fd, uintptr_t buf, uintptr_t len) {
   //TODO();
-  fs_read(fd,(void*)buf,(size_t)len);
-  return len;
+  return fs_read(fd,(void*)buf,(size_t)len);
 }
 
 static inline uintptr_t sys_lseek(uintptr_t fd, uintptr_t offset, uintptr_t whence) {
@@ -59,7 +44,7 @@ _RegSet* do_syscall(_RegSet *r) {
   a[1] = SYSCALL_ARG2(r);
   a[2] = SYSCALL_ARG3(r);
   a[3] = SYSCALL_ARG4(r);
-  printf("%d %d %d %d\n",a[0],a[1],a[2],a[3]);
+  //printf("%d %d %d %d\n",a[0],a[1],a[2],a[3]);
   switch (a[0]) {
 	case SYS_none:  SYSCALL_ARG1(r)=sys_none();break;
 	case SYS_write: Log("call SYS_write");SYSCALL_ARG1(r)=sys_write(a[1],a[2],a[3]);break;
