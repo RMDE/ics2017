@@ -13,8 +13,12 @@ uintptr_t loader(_Protect *as, const char *filename) {
   filename="/bin/bmptest";
   printf("file:%s\n",filename);
   int num=fs_open(filename,0,0);
+  printf("%d\n",num);
   size_t len=fs_filesz(num);
+  printf("%d\n",len);
   fs_read(num,DEFAULT_ENTRY,len);
+  char *p=DEFAULT_ENTRY;
+  printf("%s",p);
   fs_close(num);
   return (uintptr_t)DEFAULT_ENTRY;
 }
