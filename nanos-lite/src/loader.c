@@ -10,7 +10,7 @@ size_t fs_filesz(int);
 //size_t get_ramdisk_size();
 uintptr_t loader(_Protect *as, const char *filename) {
   //TODO();
-  filename="/bin/text";
+  filename="/bin/events";
   printf("file:%s\n",filename);
   int num=fs_open(filename,0,0);
   size_t len=fs_filesz(num);
