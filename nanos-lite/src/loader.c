@@ -10,7 +10,7 @@ size_t fs_filesz(int);
 //size_t get_ramdisk_size();
 uintptr_t loader(_Protect *as, const char *filename) {
   //TODO();
-  filename="/bin/bmptest";
+  filename="/bin/text";
   printf("file:%s\n",filename);
   int num=fs_open(filename,0,0);
   printf("%d\n",num);
