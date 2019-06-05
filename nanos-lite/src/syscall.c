@@ -46,14 +46,14 @@ _RegSet* do_syscall(_RegSet *r) {
   a[3] = SYSCALL_ARG4(r);
   //printf("%d %d %d %d\n",a[0],a[1],a[2],a[3]);
   switch (a[0]) {
-	case SYS_none:  Log("call SYS_none"); SYSCALL_ARG1(r)=sys_none();break;
-	case SYS_write: Log("call SYS_write");SYSCALL_ARG1(r)=sys_write(a[1],a[2],a[3]);break;
-	case SYS_exit:  Log("call SYS_exit");SYSCALL_ARG1(r)=sys_exit(0);break;
-	case SYS_brk:   Log("call SYS_brk");SYSCALL_ARG1(r)=sys_brk(a[1]);break;
-	case SYS_open:  Log("call SYS_open"); SYSCALL_ARG1(r)=sys_open(a[1],0,0);break;
-	case SYS_read:  Log("call SYS_read");SYSCALL_ARG1(r)=sys_read(a[1],a[2],a[3]);break;
-	case SYS_close: Log("call SYS_close");SYSCALL_ARG1(r)=sys_close(a[1]);break;
-	case SYS_lseek: Log("call SYS_lseek");SYSCALL_ARG1(r)=sys_lseek(a[1],a[2],a[3]);break;
+	case SYS_none:  /*Log("call SYS_none");*/SYSCALL_ARG1(r)=sys_none();break;
+	case SYS_write: /*Log("call SYS_write");*/SYSCALL_ARG1(r)=sys_write(a[1],a[2],a[3]);break;
+	case SYS_exit:  /*Log("call SYS_exit");*/SYSCALL_ARG1(r)=sys_exit(0);break;
+	case SYS_brk:   /*Log("call SYS_brk");*/SYSCALL_ARG1(r)=sys_brk(a[1]);break;
+	case SYS_open:  /*Log("call SYS_open");*/SYSCALL_ARG1(r)=sys_open(a[1],0,0);break;
+	case SYS_read:  /*Log("call SYS_read");*/SYSCALL_ARG1(r)=sys_read(a[1],a[2],a[3]);break;
+	case SYS_close: /*Log("call SYS_close");*/SYSCALL_ARG1(r)=sys_close(a[1]);break;
+	case SYS_lseek: /*Log("call SYS_lseek");*/SYSCALL_ARG1(r)=sys_lseek(a[1],a[2],a[3]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   return NULL;
