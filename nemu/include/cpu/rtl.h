@@ -199,14 +199,18 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
   //TODO();
-  rtlreg_t t0=*result;
+  /*rtlreg_t t0=*result;
   rtlreg_t t1=c_shl(width,3);
   t1=c_sub(32,t1);
   t1=c_shr(0xffffffff,t1); //使其最低width个字节每个位上全为1
   t0=c_and(t0,t1); //只取最低width个字节
-  cpu.eflags.ZF=!t0; //0 -> 1; 1 -> 0
-  //*result=!(*result<<(32-width<<3));
-  //rtl_set_ZF(result);
+  cpu.eflags.ZF=!t0; //0 -> 1; 1 -> 0*/
+  switch(width){
+	  case 1:t0=0xff&(*result);break;
+	  case 2:t0=0xffff&(*result);break;
+	  case 4:t0=*result;break;
+  }
+  cpu.eflags.ZF=!t0;
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
