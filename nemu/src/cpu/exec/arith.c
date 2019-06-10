@@ -1,155 +1,112 @@
 #include "cpu/exec.h"
 
 make_EHelper(add) {
- // TODO();
- t3=id_dest->val;
- rtl_subi(&t2,&id_dest->val,0x1);
- rtl_shr(&t3,&t3,&t2);
- rtl_add(&t0,&id_dest->val,&id_src->val);
- operand_write(id_dest,&t0);
- rtl_update_ZFSF(&t0,id_dest->width);
- //set CF 无符号溢出标志 
- t1=id_src->val;
- rtl_sltu(&t2,&t0,&t1);
- rtl_set_CF(&t2);//b=a+b < a
- //set OF 带符号溢出标志
- rtl_subi(&t2,&id_src->val,0x1);
- rtl_shr(&t1,&t1,&t2);//取符号位
- rtl_subi(&t2,&id_dest->val,0x1);
- rtl_shr(&t0,&t0,&t2);
- rtl_xor(&t3,&t3,&t1);
- rtl_not(&t3);
- rtl_xor(&t0,&t0,&t1);
- rtl_and(&t0,&t3,&t0);
- rtl_set_OF(&t0); 
-
- print_asm_template2(add);
+	rtl_add(&t2, &id_dest->val, &id_src->val);
+  	operand_write(id_dest, &t2);
+  	rtl_update_ZFSF(&t2, id_dest->width);
+  	rtl_sltu(&t0, &t2, &id_dest->val);
+  	rtl_set_CF(&t0);
+  	rtl_xor(&t0, &id_dest->val, &id_src->val);
+  	rtl_not(&t0);
+  	rtl_xor(&t1, &id_dest->val, &t2);
+  	rtl_and(&t0, &t0, &t1);
+  	rtl_msb(&t0, &t0, id_dest->width);
+  	rtl_set_OF(&t0);
+	
+	print_asm_template2(add);
 }
 
 make_EHelper(sub) {
-  //TODO();
-  /*rtl_sub(&t0,&id_dest->val,&id_src->val);//t0=x-y
-  rtl_slt
-  rtl_set_CF(&t2);//set CF
-  printf("cf:%d\t",t3);
-  printf("%08x,%08x,%08x\n",id_dest->val,id_src->val,t0);
-  operand_write(id_dest,&t0);
-  rtl_update_ZFSF(&t0,id_dest->width);
-  t1=id_src->val;
-  rtl_not(&t1);
-  rtl_addi(&t1,&t1,0x1);//取反码，将减法变为加法 t1=~y+1
-  printf("~y:%08x\n",t1);
-  rtl_add(&t0,&id_dest->val,&t1);//t0=x+y
-  printf("x+(~y):%08x\n",t0);
-  rtl_sltu(&t2,&t0,&t1);//t2=C(n)
-  printf("cn:%d\n",t2);
-  //rtl_xori(&t3,&t2,0x1);//t3=C(n)^1
-  rtl_shli(&t0,&id_dest->val,0x1);
-  rtl_shri(&t0,&t0,1);//t0=(x<<1)>>1
-  rtl_shli(&t1,&t1,0x1);
-  rtl_shri(&t1,&t1,1);//t1=(t1<<1)>>1
-  rtl_add(&t0,&t0,&t1);//t0=t0+t1
-  rtl_shri(&t0,&t0,31);//t0 符号位
-  rtl_andi(&t0,&t0,0x1);//t0=C(n-1)
-  printf("cn-1:%d\n",t0);
-  rtl_xor(&t3,&t2,&t0);//t3=C(n)^C(n-1)
-  rtl_set_OF(&t3);//set OF
-  printf("of:%d\n",t3);*/
-  rtl_sub(&t2, &id_dest->val, &id_src->val);
-  rtl_sltu(&t3, &id_dest->val, &t2);
-  operand_write(id_dest, &t2);
-  rtl_update_ZFSF(&t2, id_dest->width);
-  rtl_sltu(&t0, &id_dest->val, &t2);
-  rtl_or(&t0, &t3, &t0);
-  rtl_set_CF(&t0);
-  rtl_xor(&t0, &id_dest->val, &id_src->val);
-  rtl_xor(&t1, &id_dest->val, &t2);
-  rtl_and(&t0, &t0, &t1);
-  rtl_msb(&t0, &t0, id_dest->width);
-  rtl_set_OF(&t0);
-
-
-
-  print_asm_template2(sub);
+	rtl_sub(&t2,&id_dest->val,&id_src->val);
+	rtl_sltu(&t3,&id_dest->val,&t2);
+	operand_write(id_dest,&t2);
+	rtl_update_ZFSF(&t2,id_dest->width);
+	rtl_sltu(&t0,&id_dest->val,&t2);
+	rtl_or(&t0,&t3,&t0);
+	rtl_set_CF(&t0);
+	rtl_xor(&t0,&id_dest->val,&id_src->val);
+	rtl_xor(&t1,&id_dest->val,&t2);
+	rtl_and(&t0,&t0,&t1);
+	rtl_msb(&t0,&t0,id_dest->width);
+	rtl_set_OF(&t0);
+  	
+	print_asm_template2(sub);
 }
 
 make_EHelper(cmp) {
-  //TODO();
   rtl_sub(&t2, &id_dest->val, &id_src->val);
-  rtl_sltu(&t3, &id_dest->val, &t2);
   rtl_update_ZFSF(&t2, id_dest->width);
- 
   rtl_sltu(&t0, &id_dest->val, &t2);
-  rtl_or(&t0, &t3, &t0);
   rtl_set_CF(&t0);
   rtl_xor(&t0, &id_dest->val, &id_src->val);
   rtl_xor(&t1, &id_dest->val, &t2);
   rtl_and(&t0, &t0, &t1);
   rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
-
-  rtl_get_ZF(&t0);
-  rtl_get_SF(&t1);
-  rtl_get_CF(&t2);
-  rtl_get_OF(&t3);
 
   print_asm_template2(cmp);
 }
 
 make_EHelper(inc) {
- // TODO();
- rtl_addi(&t0,&id_dest->val,0x1);
- rtl_shri(&t1,&t0,0x1f);
- rtl_shri(&t2,&id_dest->val,0x1f);
- rtl_not(&t1);
- rtl_and(&t1,&t1,&t2);
- operand_write(id_dest,&t0);
- rtl_set_OF(&t1);//只有当最高位为0加1后变为1时溢出
- rtl_update_ZFSF(&t0,id_dest->width);
+  t0 = 1;
+  rtl_add(&t2, &id_dest->val, &t0);
+  operand_write(id_dest, &t2);	
+  rtl_update_ZFSF(&t2, id_dest->width);
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  rtl_not(&t0);
+  rtl_xor(&t1, &id_dest->val, &t2);
+  rtl_and(&t0, &t0, &t1);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
+
   print_asm_template1(inc);
 }
 
 make_EHelper(dec) {
-  //TODO();
- rtl_subi(&t0,&id_dest->val,0x1);
- rtl_shri(&t1,&t0,0x1f);
- rtl_shri(&t2,&id_dest->val,0x1f);
- rtl_not(&t1);
- rtl_and(&t1,&t1,&t2);
- operand_write(id_dest,&t0);
- rtl_set_OF(&t1);//只有当最高位为1减1后变为0时溢出
- rtl_update_ZFSF(&t0,id_dest->width);
+  t0 = 1;
+  rtl_sub(&t2, &id_dest->val, &t0);
+  operand_write(id_dest, &t2);
+  rtl_update_ZFSF(&t2, id_dest->width);
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  rtl_xor(&t1, &id_dest->val, &t2);
+  rtl_and(&t0, &t0, &t1);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
+
   print_asm_template1(dec);
 }
 
 make_EHelper(neg) {
- // TODO();
- rtl_sub(&t2,&tzero, &id_dest->val);
- t3=0x1;
- rtl_shli(&t3,&t3,id_dest->width-1);
- rtl_eqi(&t3,&t3,id_dest->val);
- rtl_set_OF(&t3);
- rtl_neq0(&t0,&id_dest->val);
- rtl_set_CF(&t0);
- operand_write(id_dest, &t2);
- rtl_update_ZFSF(&t2, id_dest->width);
-	  
+  if (!id_dest->val) {
+	rtl_set_CF(&tzero);
+  }
+  else {
+	rtl_addi(&t0, &tzero, 1);
+    rtl_set_CF(&t0);
+  }
+  rtl_add(&t0, &tzero, &id_dest->val);
+  t0 = -t0;
+  operand_write(id_dest, &t0);
+  rtl_update_ZFSF(&t2, id_dest->width);
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  rtl_xor(&t1, &id_dest->val, &t2);
+  rtl_and(&t0, &t0, &t1);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
+
   print_asm_template1(neg);
 }
 
 make_EHelper(adc) {
   rtl_add(&t2, &id_dest->val, &id_src->val);
   rtl_sltu(&t3, &t2, &id_dest->val);
-  rtl_get_CF(&t1);//低32位借位
+  rtl_get_CF(&t1);
   rtl_add(&t2, &t2, &t1);
   operand_write(id_dest, &t2);
-
   rtl_update_ZFSF(&t2, id_dest->width);
-
   rtl_sltu(&t0, &t2, &id_dest->val);
   rtl_or(&t0, &t3, &t0);
   rtl_set_CF(&t0);
-
   rtl_xor(&t0, &id_dest->val, &id_src->val);
   rtl_not(&t0);
   rtl_xor(&t1, &id_dest->val, &t2);
@@ -166,13 +123,10 @@ make_EHelper(sbb) {
   rtl_get_CF(&t1);
   rtl_sub(&t2, &t2, &t1);
   operand_write(id_dest, &t2);
-
   rtl_update_ZFSF(&t2, id_dest->width);
-
   rtl_sltu(&t0, &id_dest->val, &t2);
   rtl_or(&t0, &t3, &t0);
   rtl_set_CF(&t0);
-
   rtl_xor(&t0, &id_dest->val, &id_src->val);
   rtl_xor(&t1, &id_dest->val, &t2);
   rtl_and(&t0, &t0, &t1);
