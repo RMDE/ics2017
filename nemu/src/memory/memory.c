@@ -30,7 +30,6 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 }
 
 paddr_t page_translate(vaddr_t vaddr){
-	printf("start!\n");
 	paddr_t firaddr=cpu.cr3.page_directory_base&0x000fffff;
 	Log("vaddr:0x%08x",vaddr);
 	Log("first page's base:0x%08x",firaddr);
@@ -64,6 +63,8 @@ paddr_t page_translate(vaddr_t vaddr){
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
   //return paddr_read(addr, len);
+  printf("cr0:%08x\n",cpu.cr0.val);
+  printf("%d\n",cpu.cr0.paging);
   if(cpu.cr0.paging){
 	  if((addr&0xfff)+len-1>0xfff){ //the capacity of every page is 4kb
 		  /*this is a special case*/
