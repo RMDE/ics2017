@@ -64,7 +64,7 @@ paddr_t page_translate(vaddr_t vaddr){
 uint32_t vaddr_read(vaddr_t addr, int len) {
   //return paddr_read(addr, len);
   printf("cr0:%08x\n",cpu.cr0.val);
-  printf("%d\n",cpu.cr0.paging);
+  printf("%d,%d,%x\n",cpu.cr0.paging,cpu.cr0.protect_enable,cpu.cr0.dont_care);
   if(cpu.cr0.paging){
 	  if((addr&0xfff)+len-1>0xfff){ //the capacity of every page is 4kb
 		  /*this is a special case*/
