@@ -39,5 +39,6 @@ uintptr_t loader(_Protect *as, const char *filename) {
 	  va+=pagesize;
   }
   fs_close(num);
+  printf("end of loader\n");
   return (uintptr_t)DEFAULT_ENTRY;
 }
