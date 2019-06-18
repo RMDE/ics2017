@@ -17,7 +17,6 @@ make_EHelper(lidt) {
 
 make_EHelper(mov_r2cr) {
   //TODO();
-  printf("%08x\n",id_src->val);
   if(id_dest->reg==0)
 	  cpu.cr0.val=id_src->val;
   if(id_dest->reg==3)
@@ -29,7 +28,6 @@ make_EHelper(mov_r2cr) {
 
 make_EHelper(mov_cr2r) {
   //TODO();
-  printf("%08x\n",id_src->val);
   if(id_src->reg==0)
 	  operand_write(id_dest,&cpu.cr0.val);
   else if(id_src->reg==3)
