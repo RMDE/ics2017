@@ -67,6 +67,11 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 	  if((addr&0xfff)+len-1>0xfff){ //the capacity of every page is 4kb
 		  /*this is a special case*/
 		  assert(0);
+		  /*int len1=0x1000-addr&0xfff;
+		    int len2=len -len1;
+			uint32_t part1=paddr_read(page_translate(addr,0),len1);
+			uint32_t part2=paddr_read(page_translate(addr+len1,0),len2);
+			return part1+(part2<<(len1<<3));*/
 	  }
 	  else{
 		  paddr_t paddr=page_translate(addr,0);
@@ -83,6 +88,11 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
 	  if((addr&0xfff)+len-1>0xfff){
 		  /*this is a specail case*/
 		  assert(0);
+		  /*int len1=0x00001000-addr&0xfff;
+		   int len2=len-len1;
+		   paddr_write(page_translate(addr,1),len1,data);//low len1 bytes
+		   data>>=(len1<<3);
+		   paddr_write(page_translate(addr+len1,1),len2,data);//high len2 bytes*/
 	  }
 	  else{
 		  paddr_t paddr=page_translate(addr,0);
