@@ -18,6 +18,7 @@ uint32_t paddr_read(paddr_t addr, int len) {
 	int mmio_id=is_mmio(addr);
 	if(mmio_id!=-1)
 		return mmio_read(addr,len,mmio_id);
+	printf("0x%08x\n",addr);
 	return pmem_rw(addr, uint32_t) & (~0u >> ((4 - len) << 3));
 }
 
