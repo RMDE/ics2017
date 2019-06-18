@@ -29,7 +29,7 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 		memcpy(guest_to_host(addr), &data, len);
 }
 
-/*paddr_t page_translate(vaddr_t vaddr){
+paddr_t page_translate(vaddr_t vaddr,bool is_write){
 	paddr_t firaddr=cpu.cr3.page_directory_base&0x000fffff;
 	Log("vaddr:0x%08x",vaddr);
 	Log("first page's base:0x%08x",firaddr);
@@ -49,7 +49,7 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 	PTE pte;
 	pte.val=paddr_read(secaddr|(move<<2),4);
 	Log("pte:0x%08x",pte.val);
-	if(!pte.present||pte.dirty)
+	if(!pte.present||(!pte.dirty&&is_write==1))
 		assert(0);
 	if(pte.accessed==0||pte.dirty==0){
 		pte.accessed=pte.dirty=1;
@@ -59,34 +59,6 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 	paddr_t paddr=(addr<<12)|(vaddr&0x00000fff);
 	Log("paddr:0x%08x",paddr);
 	return paddr;
-}*/
-paddr_t page_translate(vaddr_t vaddr,bool is_write) {
-  uint32_t DIR = vaddr >> 22;
-  uint32_t PAGE = vaddr >> 12 & 0x000003FF;
-  uint32_t OFFSET = vaddr & 0x00000FFF;
-  paddr_t PhysicalAddr = vaddr;
-
-  if (cpu.cr0.val & 0x80000000) {
-    uint32_t PageTable = paddr_read(cpu.cr3.val + 4 * DIR, 4) & 0xFFFFF000;
-    if(!(paddr_read(cpu.cr3.val + 4 * DIR, 4) & 0x00000001)) {
-      Log("FATAL: Virtual Address is 0x%08X", vaddr);
-      Log("FATAL: eip = 0x%08X at PD", cpu.eip);
-    }
-    assert(paddr_read(cpu.cr3.val + 4 * DIR, 4) & 0x00000001); // Present
-    paddr_write(cpu.cr3.val + 4 * DIR, 4, (paddr_read(cpu.cr3.val + 4 * DIR, 4) | 0x00000020)); // Set accessed
-    uint32_t PageTableEntry = paddr_read(PageTable + 4 * PAGE, 4);
-    if(!(PageTableEntry & 0x00000001)) {
-      Log("FATAL: Virtual Address is 0x%08X", vaddr);
-      Log("FATAL: eip = 0x%08X at PT", cpu.eip);
-    }
-    assert(PageTableEntry & 0x00000001); // Present
-    paddr_write(PageTable + 4 * PAGE, 4, (paddr_read(PageTable + 4 * PAGE, 4) | 0x00000020)); // Set accessed
-    if (is_write) 
-    paddr_write(PageTable + 4 * PAGE, 4, (paddr_read(PageTable + 4 * PAGE, 4) | 0x00000040)); // Set dirty
-    PhysicalAddr = (paddr_read(PageTable + 4 * PAGE, 4) & 0xFFFFF000) + OFFSET;
-	Log("PhysicalAddr = 0x%08X", PhysicalAddr);
-  }
-  return PhysicalAddr;
 }
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
