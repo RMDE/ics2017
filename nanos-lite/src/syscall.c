@@ -32,7 +32,8 @@ static inline uintptr_t sys_close(uintptr_t fd) {
 
 static inline uintptr_t sys_brk(uintptr_t new_brk) {
   //TODO();
-  return 0;
+  //return 0;
+  return mm_brk(new_brk);//返回映射后的虚拟地址
 }
 static inline uintptr_t sys_exit(int code){
 	_halt(code);
