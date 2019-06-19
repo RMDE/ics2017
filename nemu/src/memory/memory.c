@@ -30,30 +30,30 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 }
 
 paddr_t page_translate(vaddr_t vaddr,bool is_write){
-	paddr_t firaddr=cpu.cr3.page_directory_base;//&0x000fffff;
+	paddr_t firaddr=(cpu.cr3.page_directory_base&0x000fffff)<<12;
 	Log("vaddr:0x%08x",vaddr);
 	Log("first page's base:0x%08x",firaddr);
 	paddr_t move=(vaddr&0xffc00000)>>22;
 	PDE pde;
-	pde.val=paddr_read(firaddr|(move<<2),4);
+	pde.val=paddr_read(firaddr+(move<<2),4);
 	Log("pde:0x%08x",pde.val);
 	if(!pde.present)
 		assert(0);
 	if(pde.accessed==0){
 		pde.accessed=1;
-		paddr_write(firaddr|(move<<2),4,pde.val);
+		paddr_write(firaddr+(move<<2),4,pde.val);
 	}
-	paddr_t secaddr=pde.page_frame&0x000fffff;
+	paddr_t secaddr=(pde.page_frame&0x000fffff)<<12;
 	move=(vaddr&0x003ff000)>>12;
 	Log("move:0x%08x  second page's base:0x%08x",move,secaddr);
 	PTE pte;
-	pte.val=paddr_read(secaddr|(move<<2),4);
+	pte.val=paddr_read(secaddr+(move<<2),4);
 	Log("pte:0x%08x",pte.val);
-	if(!pte.present||(!pte.dirty&&is_write==1))
+	if(!pte.present)
 		assert(0);
-	if(pte.accessed==0||pte.dirty==0){
+	if(pte.accessed==0||(pte.dirty==0&&is_write==1)){
 		pte.accessed=pte.dirty=1;
-		paddr_write(secaddr|(move<<2),4,pte.val);
+		paddr_write(secaddr+(move<<2),4,pte.val);
 	}
 	paddr_t addr=pte.page_frame&0x000fffff;
 	paddr_t paddr=(addr<<12)|(vaddr&0x00000fff);
