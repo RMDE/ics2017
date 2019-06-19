@@ -30,7 +30,7 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 }
 
 paddr_t page_translate(vaddr_t vaddr,bool is_write){
-	paddr_t firaddr=(cpu.cr3.page_directory_base&0x000fffff);
+	paddr_t firaddr=(cpu.cr3.page_directory_base&0x000fffff)<<12;
 	Log("vaddr:0x%08x",vaddr);
 	Log("first page's base:0x%08x",firaddr);
 	paddr_t move=(vaddr&0xffc00000)>>22;
@@ -43,7 +43,7 @@ paddr_t page_translate(vaddr_t vaddr,bool is_write){
 		pde.accessed=1;
 		paddr_write(firaddr+(move<<2),4,pde.val);
 	}
-	paddr_t secaddr=(pde.page_frame&0x000fffff);
+	paddr_t secaddr=(pde.page_frame&0x000fffff)<<12;
 	move=(vaddr&0x003ff000)>>12;
 	Log("move:0x%08x  second page's base:0x%08x",move,secaddr);
 	PTE pte;
