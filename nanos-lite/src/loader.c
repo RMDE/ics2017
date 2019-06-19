@@ -28,7 +28,7 @@ uintptr_t loader(_Protect *as, const char *filename) {
 	  page_num+=1;//最后剩余内容不足一页，但是也要另开辟一页
   while(page<page_num){
 	  pa=new_page();
-	  //Log("Map va to pa:0x%08x t0 0x%08x",va,pa);
+	  Log("Map va to pa:0x%08x t0 0x%08x",va,pa);
 	  _map(as,va,pa);
 	  if(offset+pagesize<=len)
 		  fs_read(num,pa,pagesize);
