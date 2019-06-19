@@ -30,6 +30,8 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 }
 
 paddr_t page_translate(vaddr_t vaddr,bool is_write){
+	if(vaddr<0x8048000)
+		return vaddr;
 	paddr_t firaddr=cpu.cr3.page_directory_base&0x000fffff;
 	Log("vaddr:0x%08x",vaddr);
 	Log("first page's base:0x%08x",firaddr);
