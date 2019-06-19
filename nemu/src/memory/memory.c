@@ -54,7 +54,7 @@ paddr_t page_translate(vaddr_t vaddr,bool is_write){
 	if(pte.accessed==0||(pte.dirty==0&&is_write==1)){
 		pte.accessed=pte.dirty=1;
 		//paddr_write(secaddr+(move<<2),4,pte.val);
-		paddr_write(secaddr+(move),4,pte.val);
+		paddr_write(secaddr+(move<<2),4,pte.val);
 	}
 	paddr_t addr=pte.page_frame&0x000fffff;
 	paddr_t paddr=(addr<<12)|(vaddr&0x00000fff);
