@@ -20,7 +20,7 @@ make_EHelper(mov_r2cr) {
   if(id_dest->reg==0)
 	  cpu.cr0.val=id_src->val;
   else if(id_dest->reg==3)
-	  cpu.cr3.val=id_src->val;
+	  cpu.cr3.val=id_dest->val;
   //operand_write(id_dest,&id_src->val);
   else
 	  assert(0);
