@@ -47,7 +47,7 @@ paddr_t page_translate(vaddr_t vaddr,bool is_write){
 	move=(vaddr&0x003ff000)>>12;
 	//Log("move:0x%08x  second page's base:0x%08x",move,secaddr);
 	PTE pte;
-	pte.val=paddr_read(secaddr+(move),4);
+	pte.val=paddr_read(secaddr+(move<<2),4);
 	//Log("pte:0x%08x",pte.val);
 	if(!pte.present)
 		assert(0);
