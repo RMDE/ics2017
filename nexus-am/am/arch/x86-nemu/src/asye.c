@@ -38,7 +38,6 @@ void _asye_init(_RegSet*(*h)(_Event, _RegSet*)) {
   idt[0x80] = GATE(STS_TG32, KSEL(SEG_KCODE), vecsys, DPL_USER);
   // -------------------- kernel trap --------------------------
   idt[0x81] = GATE(STS_TG32, KSEL(SEG_KCODE), vectrap,DPL_KERN);
-   printf("in asye.c/_asye_init\n");
   //printf("IDT[0x80]:%08x\n",idt[128]);
   set_idt(idt, sizeof(idt));
 
