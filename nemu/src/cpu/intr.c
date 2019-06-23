@@ -31,8 +31,8 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   addr=addr|(data3.data.offset_15_0&0x0000ffff);
   decoding.jmp_eip=addr;
   decoding.is_jmp=true;
-  t0=cpu.flag;
-  rtl_push(&t0);
+  //t0=cpu.flag;
+  //rtl_push(&t0);
   cpu.eflags.IF=0;
 }
 
