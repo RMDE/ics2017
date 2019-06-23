@@ -31,12 +31,12 @@ _RegSet* schedule(_RegSet *prev) {
 	current->tf=prev;
 
 	//always select pcb[0] as the new process
-	//current=&pcb[0];
+	current=&pcb[0];
 
-	current=(current==&pcb[0]&&count>200? &pcb[1]:&pcb[0]);
-	if(count>200)
-		count=0;
-	count++;
+	//current=(current==&pcb[0]&&count>200? &pcb[1]:&pcb[0]);
+	//if(count>200)
+	//	count=0;
+	//count++;
 
 	_switch(&current->as);
 	Log("proc.c/schedule");
