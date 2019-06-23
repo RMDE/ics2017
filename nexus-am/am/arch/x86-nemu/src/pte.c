@@ -116,7 +116,7 @@ _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *cons
     return (_RegSet*)stack;*/
 	struct{_RegSet *tf;}*pcb=ustack.start;
 	pcb->tf=(void*)(stack-sizeof(_RegSet));
-	pcb->tf->eflags=0x2|(1<<9);
+	pcb->tf->eflags=0x2;//|(1<<9);
 	pcb->tf->cs=8;
 	pcb->tf->eip=(uintptr_t)entry;
 	return pcb->tf;	
