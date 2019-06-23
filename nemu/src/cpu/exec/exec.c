@@ -253,9 +253,9 @@ void exec_wrapper(bool print_flag) {
   void difftest_step(uint32_t);
   difftest_step(eip);
 #endif
- /* if(cpu.intr&cpu.eflags.IF){
+  if(cpu.intr&cpu.eflags.IF){
 	  cpu.intr=false;
 	  raise_intr(TIMER_IRQ,cpu.eip);
 	  update_eip();
-  }*/
+  }
 }
