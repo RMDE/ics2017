@@ -18,6 +18,14 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 		};
 	};
   }data3;
+
+  t0=cpu.flag;
+  rtl_push(&t0);
+  //t0=cpu.cs;
+  //rtl_push(&t0);
+  //t0=ret_addr;
+  //rtl_puah(&t0);
+
   data3.data1=vaddr_read(addr,4);
   data3.data2=vaddr_read(addr+4,4);
   if((data3.data.present&0x1)!=1)assert(0);
@@ -33,4 +41,5 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 }
 
 void dev_raise_intr() {
+	cpu.intr=true;
 }

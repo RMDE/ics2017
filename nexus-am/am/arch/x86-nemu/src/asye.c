@@ -6,12 +6,13 @@ static _RegSet* (*H)(_Event,_RegSet*) = NULL;
 void vecsys();
 void vecnull();
 void vectrap();
-
+void vectime();
 _RegSet* irq_handle(_RegSet *tf) {
   _RegSet *next = tf;
   if (H) {
     _Event ev;
     switch (tf->irq) {
+	  case 0x20:printf("in asye.c/irq/time\n");ev.event=_EVENT_IRQ_TIME;break;
 	  case 0x81:ev.event = _EVENT_TRAP;break;
       case 0x80:printf("in asye.c/irq_handle\n"); ev.event = _EVENT_SYSCALL; break;
       default: ev.event = _EVENT_ERROR; break;
@@ -38,6 +39,8 @@ void _asye_init(_RegSet*(*h)(_Event, _RegSet*)) {
   idt[0x80] = GATE(STS_TG32, KSEL(SEG_KCODE), vecsys, DPL_USER);
   // -------------------- kernel trap --------------------------
   idt[0x81] = GATE(STS_TG32, KSEL(SEG_KCODE), vectrap,DPL_KERN);
+  // -------------------- time --------------------------
+  idt[0x81] = GATE(STS_TG32, KSEL(SEG_KCODE), vectime,DPL_KERN);
   //printf("IDT[0x80]:%08x\n",idt[128]);
   set_idt(idt, sizeof(idt));
 
