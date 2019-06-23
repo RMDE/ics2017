@@ -33,9 +33,13 @@ _RegSet* schedule(_RegSet *prev) {
 	//always select pcb[0] as the new process
 	current=&pcb[0];
 
-	current=(current==&pcb[0]&&count>200? &pcb[1]:&pcb[0]);
-	if(count>200)
+	current=(current==&pcb[0]? &pcb[1]:&pcb[0]);
+	if(count>200){
+		current=&pcb[1];
 		count=0;
+	}
+	else
+		current=&pcb[0];
 	count++;
 
 	_switch(&current->as);
