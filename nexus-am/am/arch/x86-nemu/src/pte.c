@@ -82,42 +82,12 @@ void _unmap(_Protect *p, void *va) {
 }
 
 _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *const argv[], char *const envp[]) {
-    /**(uint32_t*)(ustack.end-4)=0; //envp
-	*(uint32_t*)(ustack.end - 8) = 0; // argv
-	*(uint32_t*)(ustack.end - 12) = 0; // argc
-	*(uint32_t*)(ustack.end - 16) = 0; // retaddr
-	*(uint32_t*)(ustack.end - 20) = 0x00000202; // eflags
-	*(uint32_t*)(ustack.end - 24) = 8; // cs
-	*(uint32_t*)(ustack.end - 28) = (uint32_t)entry; // eip
-	*(uint32_t*)(ustack.end - 32) = 0; // error_code
-	*(uint32_t*)(ustack.end - 36) = 0x81; // irq
-	printf("in pte.c/_umake\n");
-	return (_RegSet*)(ustack.end-68);*/
-	uint32_t *stack=(uint32_t*)ustack.end;stack--;
-	//stack frame of _start()
-	*stack=0;stack--; //argc
-	*stack=0;stack--; //argv
-	*stack=0;stack--; //envp
-	/*/trap frame
-	*stack=0x2;stack--; //eflags
-	*stack=8;stack--; //cs
-	*stack=(uint32_t)entry;stack--; //eip
-	*stack=0;stack--; //error_code
-	*stack=0x81;stack--; //irq;
-	*stack = 0x0; stack--;  //eax
-	*stack = 0x0; stack--;  //ecx
-	*stack = 0x0; stack--;  //edx
-	*stack = 0x0; stack--;  //ebx
-	*stack = 0x0; stack--;  //esp
-	*stack = (uint32_t)ustack.end; stack--;  //ebp
-	*stack = 0x0; stack--;  //esi
-	*stack = 0x0; stack--;  //edi
-	printf("in pte.c/_umake\n");
-    return (_RegSet*)stack;*/
-	struct{_RegSet *tf;}*pcb=ustack.start;
-	pcb->tf=(void*)(stack-sizeof(_RegSet));
-	pcb->tf->eflags=0x2;//|(1<<9);
-	pcb->tf->cs=8;
-	pcb->tf->eip=(uintptr_t)entry;
-	return pcb->tf;	
+	ustack.end-=4*sizeof(int); //4=retaddr+argc+argv+envp
+	int *p0=ustack.end;
+	p0[0]=p0[1]=p0[2]=p0[3]=0;
+	_RegSet *r=(_RegSet*)ustack.end-1;
+	r->cs=8;
+	r->eip=(uintptr_t)entry;
+	r->eflags=0x2|FL_IF;
+	return r;	
 }
