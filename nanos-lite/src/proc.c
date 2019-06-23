@@ -39,5 +39,6 @@ _RegSet* schedule(_RegSet *prev) {
 	//prioritycounter++;
 
 	_switch(&current->as);
+	Log("proc.c/schedule");
 	return current->tf;
 }

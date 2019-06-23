@@ -1,6 +1,6 @@
 #include <am.h>
 #include <x86.h>
-
+#include<stdio.h>
 static _RegSet* (*H)(_Event,_RegSet*) = NULL;
 
 void vecsys();
@@ -13,7 +13,7 @@ _RegSet* irq_handle(_RegSet *tf) {
     _Event ev;
     switch (tf->irq) {
 	  case 0x81:ev.event = _EVENT_TRAP;break;
-      case 0x80: ev.event = _EVENT_SYSCALL; break;
+      case 0x80:printf("in asye.c/irq_handle\n"); ev.event = _EVENT_SYSCALL; break;
       default: ev.event = _EVENT_ERROR; break;
     }
 
@@ -50,6 +50,7 @@ _RegSet *_make(_Area stack, void *entry, void *arg) {
 }
 
 void _trap() {
+	printf("in asye.c/_trap\n");
 	asm volatile("int $0x81");
 }
 

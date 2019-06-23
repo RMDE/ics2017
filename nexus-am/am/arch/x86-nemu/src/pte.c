@@ -1,4 +1,5 @@
 #include <x86.h>
+#include<stdio.h>
 
 #define PG_ALIGN __attribute((aligned(PGSIZE)))
 
@@ -90,5 +91,6 @@ _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *cons
 	*(uint32_t*)(ustack.end - 28) = (uint32_t)entry; // eip
 	*(uint32_t*)(ustack.end - 32) = 0; // error_code
 	*(uint32_t*)(ustack.end - 36) = 0x81; // irq
+	printf("in pte.c/_umake\n");
 	return (_RegSet*)(ustack.end-68);
 }
