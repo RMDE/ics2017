@@ -40,7 +40,7 @@ void _asye_init(_RegSet*(*h)(_Event, _RegSet*)) {
   // -------------------- kernel trap --------------------------
   idt[0x81] = GATE(STS_TG32, KSEL(SEG_KCODE), vectrap,DPL_USER);
   // -------------------- time --------------------------
-  idt[0x81] = GATE(STS_TG32, KSEL(SEG_KCODE), vectime,DPL_USER);
+  idt[0x20] = GATE(STS_TG32, KSEL(SEG_KCODE), vectime,DPL_USER);
   //printf("IDT[0x80]:%08x\n",idt[128]);
   set_idt(idt, sizeof(idt));
 
