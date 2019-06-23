@@ -33,7 +33,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   decoding.is_jmp=true;
   //t0=cpu.flag;
   //rtl_push(&t0);
-  cpu.eflags.IF=0;
+  //cpu.eflags.IF=0;
 }
 
 void dev_raise_intr() {
