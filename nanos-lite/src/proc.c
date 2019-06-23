@@ -43,6 +43,5 @@ _RegSet* schedule(_RegSet *prev) {
 	count++;
 
 	_switch(&current->as);
-	Log("proc.c/schedule");
 	return current->tf;
 }
