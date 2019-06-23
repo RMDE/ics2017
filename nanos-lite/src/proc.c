@@ -5,7 +5,7 @@
 static PCB pcb[MAX_NR_PROC];
 static int nr_proc = 0;
 PCB *current = NULL;
-
+int count=0;
 uintptr_t loader(_Protect *as, const char *filename);
 
 void load_prog(const char *filename) {
@@ -33,10 +33,10 @@ _RegSet* schedule(_RegSet *prev) {
 	//always select pcb[0] as the new process
 	//current=&pcb[0];
 
-	current=(current==&pcb[0]? &pcb[1]:&pcb[0]);
-	//if(prioritycounter>PROCWEIGHT)
-	//	prioritycounter=0;
-	//prioritycounter++;
+	current=(current==&pcb[0]&&count>200? &pcb[1]:&pcb[0]);
+	if(count>200)
+		count=0;
+	count++;
 
 	_switch(&current->as);
 	Log("proc.c/schedule");

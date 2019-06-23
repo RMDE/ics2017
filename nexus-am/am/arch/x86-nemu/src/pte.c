@@ -82,7 +82,7 @@ void _unmap(_Protect *p, void *va) {
 }
 
 _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *const argv[], char *const envp[]) {
-    *(uint32_t*)(ustack.end-4)=0; //envp
+    /**(uint32_t*)(ustack.end-4)=0; //envp
 	*(uint32_t*)(ustack.end - 8) = 0; // argv
 	*(uint32_t*)(ustack.end - 12) = 0; // argc
 	*(uint32_t*)(ustack.end - 16) = 0; // retaddr
@@ -92,5 +92,26 @@ _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *cons
 	*(uint32_t*)(ustack.end - 32) = 0; // error_code
 	*(uint32_t*)(ustack.end - 36) = 0x81; // irq
 	printf("in pte.c/_umake\n");
-	return (_RegSet*)(ustack.end-68);
+	return (_RegSet*)(ustack.end-68);*/
+	uint32_t *stack=(uint32_t*)ustack.end;stack--;
+	//stack frame of _start()
+	*stack=0;stack--; //argc
+	*stack=0;stack--; //argv
+	*stack=0;stack--; //envp
+	//trap frame
+	*stack=0x202;stack--; //eflags
+	*stack=8;stack--; //cs
+	*stack=(uint32_t)entry;stack--; //eip
+	*stack=0;stack--; //error_code
+	*stack=0x81;stack--; //irq;
+	*stack = 0x0; stack--;  //eax
+	*stack = 0x0; stack--;  //ecx
+	*stack = 0x0; stack--;  //edx
+	*stack = 0x0; stack--;  //ebx
+	*stack = 0x0; stack--;  //esp
+	*stack = (uint32_t)ustack.end; stack--;  //ebp
+	*stack = 0x0; stack--;  //esi
+	*stack = 0x0; stack--;  //edi
+	printf("in pte.c/_umake\n");
+    return (_RegSet*)stack;	
 }
