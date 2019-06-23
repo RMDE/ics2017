@@ -98,7 +98,7 @@ _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *cons
 	*stack=0;stack--; //argc
 	*stack=0;stack--; //argv
 	*stack=0;stack--; //envp
-	//trap frame
+	/*/trap frame
 	*stack=0x2;stack--; //eflags
 	*stack=8;stack--; //cs
 	*stack=(uint32_t)entry;stack--; //eip
@@ -113,5 +113,11 @@ _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *cons
 	*stack = 0x0; stack--;  //esi
 	*stack = 0x0; stack--;  //edi
 	printf("in pte.c/_umake\n");
-    return (_RegSet*)stack;	
+    return (_RegSet*)stack;*/
+	struct{_RegSet *tf;}*pcb=ustack.start;
+	pcb->tf=(void*)(stack-sizeof(_RegSet));
+	pcb->tf->eflags=0x2|(1<<9);
+	pcb->tf->cs=8;
+	pcb->tf->eip=(uintptr_t)entry;
+	return pcb->tf;	
 }
